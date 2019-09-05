@@ -1,6 +1,18 @@
-import { lazy } from 'react'
+import { lazy, ComponentType } from 'react'
 
-const routes = [
+interface Meta {
+  title: string,
+  rules: string[]
+}
+
+export interface RouteConfig {
+  name: string,
+  path: string,
+  component: ComponentType,
+  meta: Meta
+}
+
+const routes:RouteConfig[] = [
   {
     name: 'Home',
     path: '/app',
