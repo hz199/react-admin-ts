@@ -17,5 +17,12 @@ module.exports = {
       : []),
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-dynamic-import',
+    [
+      require.resolve('babel-plugin-import'), {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: 'css',
+      }
+    ]
   ],
 };

@@ -7,6 +7,8 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const compressionWebpackPlugin = require('compression-webpack-plugin')
 
+const lessTheme = require('./config/lessTheme')
+
 const isEnvProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
@@ -96,13 +98,29 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.(css|less)$/,
-        use: !isEnvProduction ? ["style-loader", "css-loader", "postcss-loader", "less-loader"] : [
+        test: /\.css$/,
+        use: !isEnvProduction ? ["style-loader", "css-loader", "postcss-loader"] : [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader',
-          'less-loader'
+          'postcss-loader'
         ]
+      },
+      {
+        test: /\.less$/,
+        use: !isEnvProduction ?
+          ["style-loader", "css-loader", "postcss-loader", {
+            loader: require.resolve('less-loader'),
+            options: lessTheme || {}
+          }] :
+          [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            'postcss-loader',
+            {
+              loader: require.resolve('less-loader'),
+              options: lessTheme || {}
+            }
+          ]
       },
       {
         test: /\.html$/,

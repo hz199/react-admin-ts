@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom'
-import 'normalize.css'
+// import 'normalize.css'
 
 const Page = lazy(() => import('./Page'))
 
