@@ -6,7 +6,7 @@ import './index.less'
 interface HomeProps extends RouteComponentProps {}
 
 const Home = (props: HomeProps) => {
-  console.log(props)
+  // console.log(props)
   return (
     <div className="home">
       Home22sssssss
