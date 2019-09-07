@@ -7,16 +7,16 @@ const defaultStore: actionTypes.HomeState = {
     LineBarChartOption: {
       series: [],
       title: '',
-      xAxisData: []
+      xAxisData: [],
     },
     pieOptions: {
       datas: [],
-      name: ''
+      name: '',
     },
     orderTable: [],
-    CommentList: []
+    CommentList: [],
   },
-  test: 'test'
+  test: 'test',
 }
 
 /**
@@ -35,4 +35,4 @@ const homeReducer = (state = defaultStore, action: actionTypes.HomeDataAction) =
   }
 }
 
-export { homeReducer, actionTypes,  actionCreators}
+export { homeReducer, actionTypes, actionCreators }
