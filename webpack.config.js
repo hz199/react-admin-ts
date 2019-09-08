@@ -92,7 +92,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(tsx|ts)?/,
+        test: /\.(tsx|ts)/,
+        loader:'eslint-loader',
+        enforce: 'pre', // 编译前检查
+        exclude: /node_modules/, // 不检测的文件
+        include: [path.resolve(__dirname, './src')], // 指定检查的目录
+        options: {
+            // formatter: require('eslint-friendly-formatter') // 指定错误报告的格式规范
+        }
+      },
+      {
+        test: /\.(tsx|ts)/,
         exclude: /node_modules/,
         include: path.resolve(__dirname, './src'),
         loader: 'babel-loader',
@@ -146,7 +156,7 @@ module.exports = {
           outputPath: 'static/fonts'
         }
       }
-    ]
+    ].filter(Boolean)
   },
   plugins: [
     new webpack.DefinePlugin({

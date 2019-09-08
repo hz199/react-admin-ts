@@ -47,5 +47,5 @@ const server = new WebpackDevServer(compiler, {
 
 server.listen(PORT, '0.0.0.0', function () {
   console.log('\n')
-  console.log('> server is running at:', chalk.cyan(`http://localhost:${PORT}/\n`))
+  console.log(chalk.cyan(`🔥  server is running at: http://localhost:${PORT}/\n`))
 })
