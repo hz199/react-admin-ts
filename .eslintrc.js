@@ -31,6 +31,9 @@ module.exports = {
     "@typescript-eslint/explicit-member-accessibility": 0,
     "@typescript-eslint/no-triple-slash-reference": 0,
     "@typescript-eslint/triple-slash-reference": ['error', { "path": "always", "types": "never", "lib": "never" }],
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-empty-interface": 0,
+    "@typescript-eslint/no-explicit-any": 0,
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     "eqeqeq": ['warn', 'always'],
     // React相关校验规则
@@ -38,9 +41,6 @@ module.exports = {
     "react/jsx-no-undef": [2, { allowGlobals: true }],
     "jsx-control-statements/jsx-use-if-tag": 0,
     "space-before-function-paren": 2,
-    "react/display-name": 0,
-    "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-empty-interface": 0,
-    "@typescript-eslint/no-explicit-any": 0
+    "react/display-name": 0
   }
 }
