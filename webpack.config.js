@@ -91,7 +91,7 @@ module.exports = {
   },
   module: {
     rules: [
-      {
+      !isEnvProduction && {
         test: /\.(tsx|ts)/,
         loader:'eslint-loader',
         enforce: 'pre', // 编译前检查
