@@ -3,14 +3,14 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import routeConfig, { RouteConfig } from './config'
 
 interface RequiredRules {
-  loginRequired(): boolean
+  loginRequired: () => boolean
 }
 
 // 权限限制规则
 const requiredRules: RequiredRules = {
-  loginRequired() {
+  loginRequired: () => {
     return true
-  },
+  }
 }
 
 const Protected = <T extends {}>(Comp: React.ComponentType<T>, item: RouteConfig) => {
@@ -39,16 +39,10 @@ const RouterApp = () => {
   return (
     <Switch>
       {routeConfig.map((item: RouteConfig) => (
-        <Route
-                    key={item.path}
-                    path={item.path}
-                    exact
-          render={() => {
-                        return Protected(item.component, item)({})
-                    }}></Route>
-            ))}
-            <Route render={() => <Redirect to="/404" />} />
-        </Switch>
+        <Route key={item.path} path={item.path} exact render={() => Protected(item.component, item)({})}></Route>
+      ))}
+      <Route render={() => <Redirect to="/404" />} />
+    </Switch>
   )
 }
 

@@ -19,8 +19,8 @@ const routes: RouteConfig[] = [
     component: lazy(() => import('../containers/Home')),
     meta: {
       title: '首页',
-      rules: ['loginRequired'],
-    },
+      rules: ['loginRequired']
+    }
   },
   {
     name: 'Table',
@@ -28,9 +28,9 @@ const routes: RouteConfig[] = [
     component: lazy(() => import('../containers/Table')),
     meta: {
       title: '表格',
-      rules: ['loginRequired'],
-    },
-  },
+      rules: ['loginRequired']
+    }
+  }
 ]
 
 export default routes
