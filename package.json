@@ -1,7 +1,7 @@
 {
   "name": "react-admin-ts",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/index.tsx",
   "author": "H.Z",
   "license": "MIT",
   "scripts": {
