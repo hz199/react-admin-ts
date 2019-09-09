@@ -1,0 +1,6 @@
+node_modules/
+dist/
+scripts/
+config/
+package.json
+tsconfig.json

@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development node scripts/start.js",
     "build": "cross-env NODE_ENV=production node scripts/build.js",
-    "eslint": "eslint --ext .tsx,.ts --fix ./src"
+    "eslint": "eslint --ext .tsx,.ts --fix ./src",
+    "format": "prettier \"**/*.{ts,tsx,js,jsx,json}\" --write"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
