@@ -1,15 +1,17 @@
 import * as React from 'react'
 import { Button } from 'antd'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import './index.less'
 
-interface HomeProps extends RouteComponentProps {}
+// interface HomeProps extends RouteComponentProps {}
 
-const Home = (props: HomeProps) => {
-  // console.log(props)
+const Home = () => {
   return (
     <div className="home">
-      Home22sssssss
+      <p>Home22sssssss</p>
+      <p>Home22sssssss</p>
+      <p>Home22sssssss</p>
+      <p>Home22sssssss</p>
       <Button type="primary">按钮</Button>
     </div>
   )
