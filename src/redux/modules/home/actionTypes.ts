@@ -1,10 +1,5 @@
 export const SET_HOME_DATA = 'home/SET_HOME_DATA'
 
-export interface HomeDataAction {
-  type: typeof SET_HOME_DATA
-  data: any
-}
-
 export interface NumberCards {
   color: string
   icon: string
