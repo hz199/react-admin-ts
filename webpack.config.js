@@ -25,7 +25,11 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      ...(isEnvProduction ? {} : { 'react-dom': '@hot-loader/react-dom' })
+      ...(isEnvProduction
+        ? {}
+        : {
+            'react-dom': '@hot-loader/react-dom'
+          })
     }
   },
   optimization: {

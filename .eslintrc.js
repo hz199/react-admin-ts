@@ -39,7 +39,7 @@ module.exports = {
     'react/jsx-indent': 0,
     'react/jsx-no-undef': [2, { allowGlobals: true }],
     'jsx-control-statements/jsx-use-if-tag': 0,
-    'space-before-function-paren': 2,
+    'space-before-function-paren': 0, // 函数前后空格
     'react/display-name': 0
   }
 }
