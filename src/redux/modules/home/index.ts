@@ -26,7 +26,7 @@ const defaultStore: actionTypes.HomeState = {
  * @return 新的 home store
  */
 
-const homeReducer = (state = defaultStore, action: actionTypes.HomeDataAction) => {
+const homeReducer = (state = defaultStore, action: actionTypes.AddHomeDataAction) => {
   switch (action.type) {
     case actionTypes.SET_HOME_DATA:
       return Object.assign({}, state, { homeData: action.data })

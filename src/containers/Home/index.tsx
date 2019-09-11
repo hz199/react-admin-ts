@@ -6,6 +6,11 @@ import './index.less'
 
 interface HomeProps extends RouteComponentProps {}
 
+const test = (tar: any) => {
+  console.log(tar)
+}
+
+@test
 class Home extends React.Component<HomeProps> {
   render() {
     return (

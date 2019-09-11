@@ -26,6 +26,7 @@ export interface OrderTable {
   timer: string
 }
 
+// 首页数据
 export interface HomeData {
   numberCards: NumberCards[]
   LineBarChartOption: LineBarChart
@@ -34,7 +35,15 @@ export interface HomeData {
   CommentList: any[]
 }
 
+export interface AddHomeDataAction {
+  readonly type: typeof SET_HOME_DATA
+  readonly data: HomeData
+}
+
 export interface HomeState {
   homeData: HomeData
   test: string
 }
+
+// 所有 action 类型
+export type HomeAction = AddHomeDataAction

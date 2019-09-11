@@ -13,6 +13,12 @@ module.exports = {
   ],
   plugins: [
     ...(process.env.NODE_ENV !== 'production' ? ['react-hot-loader/babel'] : []),
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-dynamic-import',
     [
