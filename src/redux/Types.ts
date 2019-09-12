@@ -1,4 +1,4 @@
-import { HomeAction, HomeState } from './modules/home/actionTypes' 
+import { HomeAction, HomeState } from './modules/home/actionTypes'
 
 // export interface IAction<T extends {}, U> {
 //   readonly type: U

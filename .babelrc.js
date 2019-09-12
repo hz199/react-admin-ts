@@ -14,9 +14,9 @@ module.exports = {
   plugins: [
     ...(process.env.NODE_ENV !== 'production' ? ['react-hot-loader/babel'] : []),
     [
-      "@babel/plugin-proposal-decorators",
+      '@babel/plugin-proposal-decorators',
       {
-        "legacy": true
+        legacy: true
       }
     ],
     '@babel/plugin-proposal-class-properties',
