@@ -33,6 +33,8 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/no-empty-interface': 0,
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-this-alias': 0,
+    '@typescript-eslint/no-non-null-assertion': 0,
     'no-console': process.env.NODE_ENV === 'production' ? ['warn', { allow: ['warn', 'error'] }] : 0,
     eqeqeq: ['warn', 'always'],
     // React相关校验规则

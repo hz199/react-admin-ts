@@ -6,6 +6,8 @@ import { actionTypes, actionCreators } from '../../redux/modules/home'
 import { Dispatch } from 'redux'
 import * as homeServices from '../../services/home'
 import NumberCard from './NumberCard'
+import LineBarChart from '../../components/Echarts/LineBarChart'
+import Pie from '../../components/Echarts/Pie'
 
 import './index.less'
 
@@ -46,23 +48,26 @@ const Home = (props: HomeProps) => {
     getHomeData()
   }, [])
 
+  const { numberCards, LineBarChartOption, pieOptions } = props.homeData
+
   return (
     <div className="home">
       <Row gutter={24}>
-        {props.homeData.numberCards.map((item, key) => (
+        {numberCards.map((item, key) => (
           <Col key={key} lg={6} md={12}>
             <NumberCard {...item}></NumberCard>
           </Col>
         ))}
         <Col lg={18} md={24}>
-          <Card>{/* <Lin0eBarChart options={LineBarChartOption}></Lin0eBarChart> */}</Card>
+          <Card>
+            <LineBarChart options={LineBarChartOption}></LineBarChart>
+          </Card>
         </Col>
         <Col lg={6} md={24}>
           <Row gutter={24}>
             <Col lg={24} md={12}>
               <Card className="card card--margin">
-                66
-                {/* <Pie options={pieOption} style={{ height: "162px" }}></Pie> */}
+                <Pie options={pieOptions} style={{ height: '162px' }}></Pie>
               </Card>
             </Col>
             <Col lg={24} md={12}>
@@ -88,10 +93,6 @@ const Home = (props: HomeProps) => {
     </div>
   )
 }
-
-// Home.propTypes = {
-//   setHomeData: PropsType.func
-// }
 
 export default connect(
   mapStateToProps,
