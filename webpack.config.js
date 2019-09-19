@@ -112,7 +112,7 @@ module.exports = {
         test: /\.(tsx|ts)/,
         exclude: /node_modules/,
         include: path.resolve(__dirname, './src'),
-        loader: 'happypack/loader?id=happybabel'
+        loader: isEnvProduction ? 'happypack/loader?id=happybabel' : 'babel-loader?cacheDirectory'
       },
       {
         test: /\.css$/,
@@ -172,7 +172,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': process.env.NODE_ENV
     }),
-    new HappyPack({
+    isEnvProduction && new HappyPack({
       id: 'happybabel',
       loaders: ['babel-loader?cacheDirectory'],
       threads: 4 // 开启 4 个线程
