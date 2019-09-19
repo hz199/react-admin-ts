@@ -172,11 +172,12 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': process.env.NODE_ENV
     }),
-    isEnvProduction && new HappyPack({
-      id: 'happybabel',
-      loaders: ['babel-loader?cacheDirectory'],
-      threads: 4 // 开启 4 个线程
-    }),
+    isEnvProduction &&
+      new HappyPack({
+        id: 'happybabel',
+        loaders: ['babel-loader?cacheDirectory'],
+        threads: 4 // 开启 4 个线程
+      }),
     new HtmlWebpackPlugin(
       Object.assign(
         {},
