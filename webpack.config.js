@@ -6,6 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const compressionWebpackPlugin = require('compression-webpack-plugin')
+const HappyPack = require('happypack')
 
 const lessTheme = require('./config/lessTheme')
 
@@ -111,7 +112,7 @@ module.exports = {
         test: /\.(tsx|ts)/,
         exclude: /node_modules/,
         include: path.resolve(__dirname, './src'),
-        loader: 'babel-loader'
+        loader: 'happypack/loader?id=happybabel'
       },
       {
         test: /\.css$/,
@@ -170,6 +171,11 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': process.env.NODE_ENV
+    }),
+    new HappyPack({
+      id: 'happybabel',
+      loaders: ['babel-loader?cacheDirectory'],
+      threads: 4 // 开启 4 个线程
     }),
     new HtmlWebpackPlugin(
       Object.assign(

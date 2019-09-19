@@ -1,8 +1,6 @@
 .DS_Store
 node_modules/
 dist/
-docs/_book/
-docs/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -14,5 +12,3 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-
-/config/development.js

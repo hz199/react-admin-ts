@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import routeConfig, { RouteConfig } from './config'
 
@@ -35,7 +35,7 @@ const Protected = <T extends {}>(Comp: React.ComponentType<T>, item: RouteConfig
   }
 }
 
-const RouterApp: ReactNode = () => {
+const RouterApp = () => {
   return (
     <Switch>
       {routeConfig.map((item: RouteConfig) => (
