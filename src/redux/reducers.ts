@@ -1,9 +1,12 @@
 import { combineReducers } from 'redux'
-import { homeReducer } from './modules/home'
 import { RootReducer } from './Types'
 
+import { homeReducer } from './modules/home'
+import { settingReducer } from './modules/settings'
+
 const rootReducer: RootReducer = combineReducers({
-  home: homeReducer
+  home: homeReducer,
+  settings: settingReducer
 })
 
 export default rootReducer

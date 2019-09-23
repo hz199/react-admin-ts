@@ -34,8 +34,14 @@ const injectMenu = (menus: Array<MenusConfig>) => {
 
 // 跟菜单
 const Menus = (props: MenusProps) => {
+  const handleMenu = (params: any) => {
+    if (params.key !== props.history.location.pathname) {
+      props.history.push(params.key)
+    }
+  }
+
   return (
-    <Menu theme="dark" defaultSelectedKeys={[props.history.location.pathname]} mode="inline">
+    <Menu theme="dark" defaultSelectedKeys={[props.history.location.pathname]} onClick={handleMenu} mode="inline">
       {injectMenu(menuConfig)}
     </Menu>
   )

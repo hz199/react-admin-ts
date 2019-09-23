@@ -1,10 +1,11 @@
 import * as React from 'react'
+import { hot } from 'react-hot-loader/root'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom' // BrowserRouter
 import App from './App'
 import NoFind from './containers/NoFind'
 import Login from './containers/Login'
 
-export default () => (
+const Page = () => (
   <Router>
     <Switch>
       <Route exact path="/" render={() => <Redirect to="/app" />} />
@@ -15,3 +16,5 @@ export default () => (
     </Switch>
   </Router>
 )
+
+export default hot(Page)
