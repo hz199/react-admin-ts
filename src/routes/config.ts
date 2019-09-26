@@ -24,10 +24,20 @@ const routes: RouteConfig[] = [
   },
   {
     name: 'Table',
-    path: '/app/tables',
+    path: '/app/tables/table1',
     component: lazy(() => import('../containers/Table')),
     meta: {
       title: '表格',
+      rules: ['loginRequired']
+    }
+  },
+  /* ComponentsPage start */
+  {
+    name: 'LoadingBar',
+    path: '/app/components/loadingBar',
+    component: lazy(() => import('../containers/ComponentsPage/LoadingBar')),
+    meta: {
+      title: 'LoadingBar',
       rules: ['loginRequired']
     }
   }

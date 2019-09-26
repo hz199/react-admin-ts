@@ -42,7 +42,8 @@ module.exports = {
     'react/jsx-no-undef': [2, { allowGlobals: true }],
     'jsx-control-statements/jsx-use-if-tag': 0,
     'space-before-function-paren': 0, // 函数前后空格
-    'react/display-name': 0
+    'react/display-name': 0,
+    'react/no-render-return-value': 0 // 不依赖于来自reactdom的返回值
   }
 }
 

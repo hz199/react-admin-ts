@@ -1,4 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 
-const Table = () => <div>Table</div>
+interface ITableProps {}
+class Table extends React.PureComponent<ITableProps> {
+  render() {
+    return <div>Table</div>
+  }
+}
 export default Table
