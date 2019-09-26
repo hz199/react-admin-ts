@@ -1,20 +1,23 @@
 # react-admin-ts
 
-## 前言
-在之前`react`[项目](https://github.com/hz199/__react-admin-zh-redux)上用 `typescript`重构
+在之前`react`[项目](https://github.com/hz199/__react-admin-zh-redux)上用 `typescript`重构， 顺带学习下ts
 
-## Project setup
+## 安装依赖
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 生产环境启动
 ```
 yarn dev
 ```
 
-### Compiles and minifies for production
+### 打包生产环境
 ```
 yarn build
 ```
 
+### 代码格式化
+```
+yarn format
+```
