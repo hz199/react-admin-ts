@@ -1,6 +1,4 @@
-# react-admin-ts
-
-在之前`react`[项目](https://github.com/hz199/__react-admin-zh-redux)上用 `typescript`重构， 顺带学习下ts
+# 后台管理系统
 
 ## 安装依赖
 ```
