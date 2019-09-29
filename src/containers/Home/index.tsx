@@ -25,8 +25,9 @@ const mapStateToProps = (state: RootState): FromStateProps => {
     testData: '哈哈'
   }
 }
-
-type FromDispatchProps = Omit<HomeProps, 'homeData' | 'testData'>
+// mapStateToProps 的key 的联合类型
+type MapStateToPropsKeys = keyof FromStateProps
+type FromDispatchProps = Omit<HomeProps, MapStateToPropsKeys>
 
 const mapDispatchToProps = (dispatch: Dispatch<actionTypes.HomeAction>): FromDispatchProps => {
   return {
@@ -36,8 +37,10 @@ const mapDispatchToProps = (dispatch: Dispatch<actionTypes.HomeAction>): FromDis
   }
 }
 
-// home
-const Home = (props: HomeProps) => {
+/**
+ * home 页面
+ */
+const HomePage = (props: HomeProps) => {
   const getHomeData = () => {
     homeServices.getHomeData().then((res) => {
       props.setHomeData(res.data)
@@ -97,4 +100,4 @@ const Home = (props: HomeProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home)
+)(HomePage)

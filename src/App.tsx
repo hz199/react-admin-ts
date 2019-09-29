@@ -8,6 +8,7 @@ import { actionTypes, actionCreators } from './redux/modules/settings'
 import AdminHeader from './components/Layout/Header'
 import Menus from './components/Layout/Menus'
 import throttle from './utils/throttle'
+import TagPageOpen from './components/Layout/TagPageOpen'
 import './App.less'
 
 /**
@@ -111,6 +112,7 @@ class App extends React.PureComponent<IProps, IState> {
             }}
             currentMenuStatus={screenOffsetWidth < ScreenStatus ? this.state.drawerVisible : this.state.collapsed}
           ></AdminHeader>
+          <TagPageOpen></TagPageOpen>
           <Layout.Content style={{ margin: '8px 16px 0', display: 'flex', flexDirection: 'column' }}>
             <div style={{ background: '#fff', borderRadius: '2px', padding: '5px', flexGrow: 1 }}>
               <React.Suspense fallback={<div>Loading comp...</div>}>
