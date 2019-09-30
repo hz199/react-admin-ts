@@ -1,8 +1,17 @@
 import * as actionTypes from './actionTypes'
 import * as actionCreators from './actionCreators'
 
+const tagNavConfig: actionTypes.TagNavConfig = {
+  path: '/app',
+  title: '首页',
+  flag: true,
+  color: 'default'
+}
+
 const defaultStore: actionTypes.SettingState = {
-  ScreenWidth: 0
+  ScreenWidth: 0,
+  tagNav: [tagNavConfig],
+  tagNavRouter: ['/app']
 }
 
 const settingReducer = (state = defaultStore, action: actionTypes.SettingsAction) => {

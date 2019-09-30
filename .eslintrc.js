@@ -43,7 +43,8 @@ module.exports = {
     'jsx-control-statements/jsx-use-if-tag': 0,
     'space-before-function-paren': 0, // 函数前后空格
     'react/display-name': 0,
-    'react/no-render-return-value': 0 // 不依赖于来自reactdom的返回值
+    'react/no-render-return-value': 0, // 不依赖于来自reactdom的返回值
+    'react/prop-types': 0
   }
 }
 
