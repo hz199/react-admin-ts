@@ -84,5 +84,13 @@
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "size-sensor": "^0.2.5"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie < 11",
+    "last 2 versions",
+    "> 1%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ]
 }

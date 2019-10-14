@@ -41,7 +41,7 @@ class TagPageOpen extends React.Component<IProps, IState> {
   }
 
   moveToView(currentTag: HTMLDivElement) {
-
+    console.log(currentTag)
   }
 
   // moveToView(tag, scrollView) {
