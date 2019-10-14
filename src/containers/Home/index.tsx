@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Row, Col, Card } from 'antd'
-import { connect, Omit } from 'react-redux'
+import { connect } from 'react-redux'
 import { RootState } from '../../redux/Types'
 import { actionTypes, actionCreators } from '../../redux/modules/home'
 import { Dispatch } from 'redux'

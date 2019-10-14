@@ -1,6 +1,9 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
 import routeConfig, { RouteConfig } from './config'
+import { actionCreators, actionTypes } from '../redux/modules/settings'
 
 interface RequiredRules {
   loginRequired: () => boolean
@@ -13,8 +16,12 @@ const requiredRules: RequiredRules = {
   }
 }
 
-const Protected = <T extends {}>(Comp: React.ComponentType<T>, item: RouteConfig) => {
-  return (props: T): React.ReactElement => {
+interface IRouteProps {
+  setTagsNavData: (P: actionTypes.SetTagsNavOptions) => void
+}
+
+const Protected = function Protected(Comp: React.ComponentType, item: RouteConfig) {
+  return (props: IRouteProps): React.ReactElement => {
     // TODO 处理一些额外的事件
     const { meta, path } = item
     document.title = meta.title || 'react-admin-ts'
@@ -30,20 +37,33 @@ const Protected = <T extends {}>(Comp: React.ComponentType<T>, item: RouteConfig
         }
       }
     }
-
-    return <Comp {...props} />
+    const { setTagsNavData } = props
+    setTagsNavData({
+      path,
+      title: meta.title
+    })
+    return <Comp />
   }
 }
 
-const RouterApp = () => {
+const RouterApp = (props: IRouteProps) => {
   return (
     <Switch>
       {routeConfig.map((item: RouteConfig) => (
-        <Route key={item.path} path={item.path} exact render={() => Protected(item.component, item)({})}></Route>
+        <Route key={item.path} path={item.path} exact render={() => Protected(item.component, item)(props)}></Route>
       ))}
       <Route render={() => <Redirect to="/404" />} />
     </Switch>
   )
 }
 
-export default RouterApp
+export default connect(
+  () => ({}),
+  (dispatch: Dispatch<actionTypes.SettingsAction>) => {
+    return {
+      setTagsNavData(currentRouter: actionTypes.SetTagsNavOptions) {
+        dispatch(actionCreators.setTagsNavData(currentRouter))
+      }
+    }
+  }
+)(RouterApp)

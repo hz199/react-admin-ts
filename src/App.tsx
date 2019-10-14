@@ -29,6 +29,7 @@ interface IState {
 
 interface IProps {
   screenOffsetWidth: number
+  tagsNavData: Array<actionTypes.TagNavConfig>
   setScreenWidth: (F: number) => void
 }
 
@@ -79,7 +80,7 @@ class App extends React.PureComponent<IProps, IState> {
 
   render() {
     const { placement, drawerVisible, collapsed } = this.state
-    const { screenOffsetWidth } = this.props
+    const { screenOffsetWidth, tagsNavData } = this.props
 
     const Sider = (
       <Layout.Sider collapsed={collapsed}>
@@ -112,7 +113,7 @@ class App extends React.PureComponent<IProps, IState> {
             }}
             currentMenuStatus={screenOffsetWidth < ScreenStatus ? this.state.drawerVisible : this.state.collapsed}
           ></AdminHeader>
-          <TagPageOpen></TagPageOpen>
+          <TagPageOpen tagsNavList={tagsNavData}></TagPageOpen>
           <Layout.Content style={{ margin: '8px 16px 0', display: 'flex', flexDirection: 'column' }}>
             <div style={{ background: '#fff', borderRadius: '2px', padding: '5px', flexGrow: 1 }}>
               <React.Suspense fallback={<div>Loading comp...</div>}>
@@ -129,7 +130,8 @@ class App extends React.PureComponent<IProps, IState> {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    screenOffsetWidth: state.settings.ScreenWidth
+    screenOffsetWidth: state.settings.ScreenWidth,
+    tagsNavData: state.settings.tagNav
   }
 }
 

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 interface IProps {
   closable?: boolean
   color?: string
-  onRef?: (tag: HTMLDivElement | null) => void
+  onCurrentRef?: (tag: HTMLDivElement | null) => void
   onClose?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onPress?: () => void
 }
@@ -17,8 +17,8 @@ const Tag: React.FunctionComponent<IProps> = (props) => {
     <div
       className="zh-tag"
       ref={(tag) => {
-        if (props.color === 'primary' && !!tag && props.onRef) {
-          props.onRef(tag)
+        if (props.color === 'primary' && !!tag && props.onCurrentRef) {
+          props.onCurrentRef(tag)
         }
       }}
     >
@@ -38,21 +38,12 @@ const Tag: React.FunctionComponent<IProps> = (props) => {
   )
 }
 
-// Tag.defaultProps = {
-//   closable: true,
-//   color: 'default',
-//   onRef: () => {},
-//   onClose: () => {},
-//   onPress: () => {}
-// }
-
 Tag.propTypes = {
   closable: PropTypes.bool,
   color: PropTypes.oneOf(['default', 'primary']),
-  onRef: PropTypes.func,
+  onCurrentRef: PropTypes.func,
   onClose: PropTypes.func,
   onPress: PropTypes.func
-  // children: PropTypes.node
 }
 
 export default Tag
