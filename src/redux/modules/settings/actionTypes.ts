@@ -1,3 +1,4 @@
+import * as H from 'history'
 /**
  * 设置屏幕的宽 type
  */
@@ -57,6 +58,12 @@ export interface SetTagsNavOptions {
   title: string
 }
 
+// tags 导航数据
+export interface DeleteOneTagData {
+  path: string
+  history: H.History
+}
+
 /**
  * 设置 tags 导航数据 action
  */
@@ -70,7 +77,7 @@ export interface SetTagsNavAction {
  */
 export interface DeleteOneTagAction {
   readonly type: typeof DELETE_ONE_TAG
-  readonly data: SetTagsNavOptions
+  readonly data: DeleteOneTagData
 }
 
 /**
@@ -78,7 +85,7 @@ export interface DeleteOneTagAction {
  */
 export interface DeleteAllTagAction {
   readonly type: typeof DELETE_ALL_TAG
-  readonly data: SetTagsNavOptions
+  readonly data: H.History
 }
 
 /**
@@ -86,7 +93,7 @@ export interface DeleteAllTagAction {
  */
 export interface DeleteOtherTagAction {
   readonly type: typeof DELETE_OTHER_TAG
-  readonly data: SetTagsNavOptions
+  readonly data: H.History
 }
 
 // 所有 action 类型

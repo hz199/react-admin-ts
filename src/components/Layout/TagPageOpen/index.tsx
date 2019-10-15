@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as H from 'history'
 import { Row, Col, Dropdown, Button, Menu } from 'antd'
 import { actionTypes } from '@/redux/modules/settings'
 // import { CSSTransition, TransitionGroup } from 'react-transition-group'
@@ -14,10 +15,11 @@ interface IState {
 
 interface IProps {
   tagsNavList: Array<actionTypes.TagNavConfig>
+  appHistory: H.History
 
-  deleteOneTag: (P: actionTypes.SetTagsNavOptions) => void
-  deleteAllTag: (P: actionTypes.SetTagsNavOptions) => void
-  deleteOtherTag: (P: actionTypes.SetTagsNavOptions) => void
+  deleteOneTag: (P: actionTypes.DeleteOneTagData) => void
+  deleteAllTag: (P: H.History) => void
+  deleteOtherTag: (P: H.History) => void
 }
 
 class TagPageOpen extends React.PureComponent<IProps, IState> {
@@ -74,17 +76,32 @@ class TagPageOpen extends React.PureComponent<IProps, IState> {
   }
 
   deleteMenu = ({ key }: any) => {
-    // const { deleteAllTag, deleteOtherTag } = this.props
-    // switch (key) {
-    //   case 'all':
-    //     deleteAllTag()
-    //     break
-    //   case 'other':
-    //     deleteOtherTag()
-    //     break
-    //   default:
-    //     break
-    // }
+    const { deleteAllTag, deleteOtherTag, appHistory } = this.props
+    switch (key) {
+      case 'all':
+        deleteAllTag(appHistory)
+        break
+      case 'other':
+        deleteOtherTag(appHistory)
+        break
+      default:
+        break
+    }
+  }
+
+  deleteOneTag = (path: string) => {
+    const { deleteOneTag, appHistory } = this.props
+    deleteOneTag({
+      path,
+      history: appHistory
+    })
+  }
+
+  handleJumpRouter = (path: string) => {
+    const { appHistory } = this.props
+    if (path !== appHistory.location.pathname) {
+      appHistory.push(path)
+    }
   }
 
   render() {
@@ -97,15 +114,17 @@ class TagPageOpen extends React.PureComponent<IProps, IState> {
       </Menu>
     )
 
-    const Tags = tagsNavList.map((tag, index) => {
+    const Tags = tagsNavList.map((tag) => {
       return (
         <Tag
           onCurrentRef={(tag) => {
             this._currentTag = tag
           }}
+          onPress={this.handleJumpRouter}
+          onClose={this.deleteOneTag}
           closable={tag.flag}
           color={tag.color}
-          Index={index.toString()}
+          routerPath={tag.path}
           key={tag.path}
         >
           {tag.title}

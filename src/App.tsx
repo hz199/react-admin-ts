@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Layout, Drawer } from 'antd'
+import * as H from 'history'
 import { connect } from 'react-redux'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import RouterApp from './routes'
 import { Dispatch } from 'redux'
 import { RootState } from './redux/Types'
@@ -27,13 +29,13 @@ interface IState {
   drawerVisible: boolean
 }
 
-interface IProps {
+interface IProps extends RouteComponentProps {
   screenOffsetWidth: number
   tagsNavData: Array<actionTypes.TagNavConfig>
   setScreenWidth: (P: number) => void
-  deleteOneTag: (P: actionTypes.SetTagsNavOptions) => void
-  deleteAllTag: (P: actionTypes.SetTagsNavOptions) => void
-  deleteOtherTag: (P: actionTypes.SetTagsNavOptions) => void
+  deleteOneTag: (P: actionTypes.DeleteOneTagData) => void
+  deleteAllTag: (P: H.History) => void
+  deleteOtherTag: (P: H.History) => void
 }
 
 class App extends React.PureComponent<IProps, IState> {
@@ -83,7 +85,7 @@ class App extends React.PureComponent<IProps, IState> {
 
   render() {
     const { placement, drawerVisible, collapsed } = this.state
-    const { screenOffsetWidth, tagsNavData, ...otherDeleteTagProps } = this.props
+    const { screenOffsetWidth, tagsNavData, history, ...otherDeleteTagProps } = this.props
 
     const Sider = (
       <Layout.Sider collapsed={collapsed}>
@@ -120,7 +122,11 @@ class App extends React.PureComponent<IProps, IState> {
           ></AdminHeader>
           {/* tag 导航 */}
           {screenOffsetWidth < ScreenStatus ? null : (
-            <TagPageOpen {...otherDeleteTagProps} tagsNavList={tagsNavData}></TagPageOpen>
+            <TagPageOpen
+              {...otherDeleteTagProps}
+              appHistory={history}
+              tagsNavList={tagsNavData}
+            ></TagPageOpen>
           )}
           <Layout.Content
             style={{ margin: '8px 16px 0', display: 'flex', flexDirection: 'column' }}
@@ -152,13 +158,13 @@ const mapDispatchToProps = (dispatch: Dispatch<actionTypes.SettingsAction>) => {
     setScreenWidth(payload: number) {
       dispatch(actionCreators.setScreenWidth(payload))
     },
-    deleteOneTag(payload: actionTypes.SetTagsNavOptions) {
+    deleteOneTag(payload: actionTypes.DeleteOneTagData) {
       dispatch(actionCreators.deleteOneTag(payload))
     },
-    deleteAllTag(payload: actionTypes.SetTagsNavOptions) {
+    deleteAllTag(payload: H.History) {
       dispatch(actionCreators.deleteAllTag(payload))
     },
-    deleteOtherTag(payload: actionTypes.SetTagsNavOptions) {
+    deleteOtherTag(payload: H.History) {
       dispatch(actionCreators.deleteOtherTag(payload))
     }
   }
@@ -167,4 +173,4 @@ const mapDispatchToProps = (dispatch: Dispatch<actionTypes.SettingsAction>) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(withRouter(App))

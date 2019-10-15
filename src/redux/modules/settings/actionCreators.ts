@@ -9,9 +9,11 @@ import {
   DELETE_OTHER_TAG,
   DeleteOneTagAction,
   DeleteAllTagAction,
-  DeleteOtherTagAction
+  DeleteOtherTagAction,
+  DeleteOneTagData
 } from './actionTypes'
 
+import * as H from 'history'
 /**
  * 设置屏幕宽
  * @param data
@@ -34,7 +36,7 @@ export const setTagsNavData = (data: SetTagsNavOptions): SetTagsNavAction => ({
  * 删除一个 tag
  * @param [SetTagsNavOptions] data
  */
-export const deleteOneTag = (data: SetTagsNavOptions): DeleteOneTagAction => ({
+export const deleteOneTag = (data: DeleteOneTagData): DeleteOneTagAction => ({
   type: DELETE_ONE_TAG,
   data
 })
@@ -43,7 +45,7 @@ export const deleteOneTag = (data: SetTagsNavOptions): DeleteOneTagAction => ({
  * 删除全部 除了首页的 tag
  * @param [SetTagsNavOptions] data
  */
-export const deleteAllTag = (data: SetTagsNavOptions): DeleteAllTagAction => ({
+export const deleteAllTag = (data: H.History): DeleteAllTagAction => ({
   type: DELETE_ALL_TAG,
   data
 })
@@ -52,7 +54,7 @@ export const deleteAllTag = (data: SetTagsNavOptions): DeleteAllTagAction => ({
  * 删除其他 除了首页和当前选中的 tag
  * @param [SetTagsNavOptions] data
  */
-export const deleteOtherTag = (data: SetTagsNavOptions): DeleteOtherTagAction => ({
+export const deleteOtherTag = (data: H.History): DeleteOtherTagAction => ({
   type: DELETE_OTHER_TAG,
   data
 })

@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes'
 import * as actionCreators from './actionCreators'
+import * as H from 'history'
 
 const tagNavConfig: actionTypes.TagNavConfig = {
   path: '/app',
@@ -14,14 +15,19 @@ const defaultStore: actionTypes.SettingState = {
   tagNavRouter: ['/app']
 }
 
+const localStorageKey = 'ZH_TAG_KEY'
+const localStoragePathKey = 'ZH_TAG_PATH_KEY'
+
 /**
  * 设置 顶部导航数据
  */
 const setTagsNav = (state: actionTypes.SettingState, data: actionTypes.SetTagsNavOptions) => {
   const TagsNav: actionTypes.TagNavConfig[] = JSON.parse(window.localStorage.getItem(
-    'zh_tag_page'
+    localStorageKey
   ) as string)
-  const tagPath: Array<string> = JSON.parse(window.localStorage.getItem('zh_tag_path') as string)
+  const tagPath: Array<string> = JSON.parse(window.localStorage.getItem(
+    localStoragePathKey
+  ) as string)
 
   const currentRouter: actionTypes.TagNavConfig = {
     path: data.path,
@@ -46,75 +52,61 @@ const setTagsNav = (state: actionTypes.SettingState, data: actionTypes.SetTagsNa
     }
   })
 
-  window.localStorage.setItem('zh_tag_page', JSON.stringify(initTagsNav))
-  window.localStorage.setItem('zh_tag_path', JSON.stringify(initTagPath))
+  window.localStorage.setItem(localStorageKey, JSON.stringify(initTagsNav))
+  window.localStorage.setItem(localStoragePathKey, JSON.stringify(initTagPath))
   return Object.assign({}, state, { tagNav: initTagsNav, tagNavRouter: initTagPath })
 }
 
-const deleteAllTag = (state: actionTypes.SettingState, data: actionTypes.SetTagsNavOptions) => {
-  console.log(state, data)
-  return state
+const deleteAllTag = (state: actionTypes.SettingState, data: H.History) => {
+  setTimeout(() => {
+    data && data.push('/app')
+  }, 50)
+
+  const initTagPage = [tagNavConfig]
+  const initTagPath = ['/app']
+
+  window.localStorage.setItem(localStorageKey, JSON.stringify(initTagPage))
+  window.localStorage.setItem(localStoragePathKey, JSON.stringify(initTagPath))
+  return Object.assign({}, state, { tagNav: initTagPage, tagNavRouter: initTagPath })
 }
 
-const deleteOtherTag = (state: actionTypes.SettingState, data: actionTypes.SetTagsNavOptions) => {
-  console.log(state, data)
-  return state
+const deleteOtherTag = (state: actionTypes.SettingState) => {
+  let { tagNav } = JSON.parse(JSON.stringify(state)) as actionTypes.SettingState
+
+  const tagPageRouter: Array<string> = []
+
+  tagNav = tagNav.filter((item) => {
+    if (item.color !== 'default' || item.path === '/app') {
+      tagPageRouter.push(item.path)
+      return true
+    } else {
+      return false
+    }
+  })
+
+  window.localStorage.setItem(localStorageKey, JSON.stringify(tagNav))
+  window.localStorage.setItem(localStoragePathKey, JSON.stringify(tagPageRouter))
+  return Object.assign({}, state, { tagNav, tagPageRouter })
 }
 
-const deleteOneTag = (state: actionTypes.SettingState, data: actionTypes.SetTagsNavOptions) => {
-  console.log(state, data)
-  return state
+const deleteOneTag = (state: actionTypes.SettingState, data: actionTypes.DeleteOneTagData) => {
+  const { tagNav, tagNavRouter } = JSON.parse(JSON.stringify(state)) as actionTypes.SettingState
+  const currentIndex = tagNavRouter.indexOf(data.path)
+  const currentPrimaryRoute = tagNav[currentIndex]
+
+  tagNav.splice(currentIndex, 1)
+  tagNavRouter.splice(currentIndex, 1)
+
+  if (currentPrimaryRoute.color === 'primary') {
+    setTimeout(() => {
+      data.history.push(tagNavRouter[currentIndex - 1])
+    }, 50)
+  }
+
+  window.localStorage.setItem(localStorageKey, JSON.stringify(tagNav))
+  window.localStorage.setItem(localStoragePathKey, JSON.stringify(tagNavRouter))
+  return Object.assign({}, state, { tagNav, tagNavRouter })
 }
-
-// // 删除全部
-// const deleteAllTag = (state, history) => {
-//   history && history.push('/app')
-
-//   const initTagPage = [homePathConfig]
-//   const initTagPath = ['/app']
-
-//   window.localStorage.setItem('zh_tag_page', JSON.stringify(initTagPage))
-//   window.localStorage.setItem('zh_tag_path', JSON.stringify(initTagPath))
-//   return Object.assign({}, state, {tagPage: initTagPage, tagPageRouter: initTagPath})
-// }
-
-// // 删除其他
-// const deleteOtherTag = (state) => {
-//   let {tagPage} = JSON.parse(JSON.stringify(state))
-
-//   let tagPageRouter = []
-
-//   tagPage = tagPage.filter(item => {
-//     if (item.color !== 'default' || item.path === '/app') {
-//       tagPageRouter.push(item.path)
-//       return true
-//     } else {
-//       return false
-//     }
-//   })
-
-//   window.localStorage.setItem('zh_tag_page', JSON.stringify(tagPage))
-//   window.localStorage.setItem('zh_tag_path', JSON.stringify(tagPageRouter))
-//   return Object.assign({}, state, {tagPage, tagPageRouter})
-// }
-
-// // 删除一个
-// const deleteOneTag = (state, params) => {
-//   let {tagPage, tagPageRouter} = JSON.parse(JSON.stringify(state))
-//   const currentIndex = tagPageRouter.indexOf(params.currentTagMessage.path)
-
-//   if (params.currentTagMessage.color === 'primary') {
-//     params.history.push(tagPageRouter[currentIndex - 1])
-//   }
-
-
-//   tagPage.splice(currentIndex, 1)
-//   tagPageRouter.splice(currentIndex, 1)
-
-//   window.localStorage.setItem('zh_tag_page', JSON.stringify(tagPage))
-//   window.localStorage.setItem('zh_tag_path', JSON.stringify(tagPageRouter))
-//   return Object.assign({}, state, {tagPage, tagPageRouter})
-// }
 
 /**
  * 设置 Reducer
@@ -130,7 +122,7 @@ const settingReducer = (state = defaultStore, action: actionTypes.SettingsAction
     case actionTypes.DELETE_ALL_TAG:
       return deleteAllTag(state, action.data)
     case actionTypes.DELETE_OTHER_TAG:
-      return deleteOtherTag(state, action.data)
+      return deleteOtherTag(state)
     case actionTypes.DELETE_ONE_TAG:
       return deleteOneTag(state, action.data)
     default:

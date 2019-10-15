@@ -5,10 +5,10 @@ import PropTypes from 'prop-types'
 interface IProps {
   closable?: boolean
   color?: string
-  Index?: string
+  routerPath?: string
   onCurrentRef?: (tag: HTMLDivElement | null) => void
-  onClose?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onPress?: () => void
+  onClose?: (path: string) => void
+  onPress?: (P: string) => void
 }
 
 // type A = Required<IProps>
@@ -17,7 +17,9 @@ const Tag: React.FunctionComponent<IProps> = (props) => {
   return (
     <div
       className="zh-tag"
-      data-index={props.Index}
+      onClick={() => {
+        props.onPress && props.onPress(props.routerPath!)
+      }}
       ref={(tag) => {
         if (props.color === 'primary' && !!tag && props.onCurrentRef) {
           props.onCurrentRef(tag)
@@ -30,7 +32,7 @@ const Tag: React.FunctionComponent<IProps> = (props) => {
         <Icon
           onClick={(e) => {
             e.stopPropagation()
-            props.onClose && props.onClose(e)
+            props.onClose && props.onClose(props.routerPath!)
           }}
           className="zh-tag__close"
           type="close"
@@ -42,7 +44,7 @@ const Tag: React.FunctionComponent<IProps> = (props) => {
 
 Tag.propTypes = {
   closable: PropTypes.bool,
-  Index: PropTypes.string,
+  routerPath: PropTypes.string,
   color: PropTypes.oneOf(['default', 'primary']),
   onCurrentRef: PropTypes.func,
   onClose: PropTypes.func,
