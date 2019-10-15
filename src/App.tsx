@@ -30,7 +30,10 @@ interface IState {
 interface IProps {
   screenOffsetWidth: number
   tagsNavData: Array<actionTypes.TagNavConfig>
-  setScreenWidth: (F: number) => void
+  setScreenWidth: (P: number) => void
+  deleteOneTag: (P: actionTypes.SetTagsNavOptions) => void
+  deleteAllTag: (P: actionTypes.SetTagsNavOptions) => void
+  deleteOtherTag: (P: actionTypes.SetTagsNavOptions) => void
 }
 
 class App extends React.PureComponent<IProps, IState> {
@@ -80,7 +83,7 @@ class App extends React.PureComponent<IProps, IState> {
 
   render() {
     const { placement, drawerVisible, collapsed } = this.state
-    const { screenOffsetWidth, tagsNavData } = this.props
+    const { screenOffsetWidth, tagsNavData, ...otherDeleteTagProps } = this.props
 
     const Sider = (
       <Layout.Sider collapsed={collapsed}>
@@ -111,17 +114,25 @@ class App extends React.PureComponent<IProps, IState> {
             onMenuClick={() => {
               this.handleMenuClick()
             }}
-            currentMenuStatus={screenOffsetWidth < ScreenStatus ? this.state.drawerVisible : this.state.collapsed}
+            currentMenuStatus={
+              screenOffsetWidth < ScreenStatus ? this.state.drawerVisible : this.state.collapsed
+            }
           ></AdminHeader>
           {/* tag 导航 */}
-          {screenOffsetWidth < ScreenStatus ? null : <TagPageOpen tagsNavList={tagsNavData}></TagPageOpen>}
-          <Layout.Content style={{ margin: '8px 16px 0', display: 'flex', flexDirection: 'column' }}>
+          {screenOffsetWidth < ScreenStatus ? null : (
+            <TagPageOpen {...otherDeleteTagProps} tagsNavList={tagsNavData}></TagPageOpen>
+          )}
+          <Layout.Content
+            style={{ margin: '8px 16px 0', display: 'flex', flexDirection: 'column' }}
+          >
             <div style={{ background: '#fff', borderRadius: '2px', padding: '5px', flexGrow: 1 }}>
               <React.Suspense fallback={<div>Loading comp...</div>}>
                 <RouterApp></RouterApp>
               </React.Suspense>
             </div>
-            <Layout.Footer style={{ textAlign: 'center' }}>react-admin ©2019 Created by H.Z</Layout.Footer>
+            <Layout.Footer style={{ textAlign: 'center' }}>
+              react-admin ©2019 Created by H.Z
+            </Layout.Footer>
           </Layout.Content>
         </Layout>
       </Layout>
@@ -136,10 +147,19 @@ const mapStateToProps = (state: RootState) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<actionTypes.SetScreenWidthAction>) => {
+const mapDispatchToProps = (dispatch: Dispatch<actionTypes.SettingsAction>) => {
   return {
     setScreenWidth(payload: number) {
       dispatch(actionCreators.setScreenWidth(payload))
+    },
+    deleteOneTag(payload: actionTypes.SetTagsNavOptions) {
+      dispatch(actionCreators.deleteOneTag(payload))
+    },
+    deleteAllTag(payload: actionTypes.SetTagsNavOptions) {
+      dispatch(actionCreators.deleteAllTag(payload))
+    },
+    deleteOtherTag(payload: actionTypes.SetTagsNavOptions) {
+      dispatch(actionCreators.deleteOtherTag(payload))
     }
   }
 }

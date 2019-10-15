@@ -41,7 +41,12 @@ const Menus = (props: MenusProps) => {
   }
 
   return (
-    <Menu theme="dark" defaultSelectedKeys={[props.history.location.pathname]} onClick={handleMenu} mode="inline">
+    <Menu
+      theme="dark"
+      defaultSelectedKeys={[props.history.location.pathname]}
+      onClick={handleMenu}
+      mode="inline"
+    >
       {injectMenu(menuConfig)}
     </Menu>
   )

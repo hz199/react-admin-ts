@@ -29,13 +29,17 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 0,
     '@typescript-eslint/explicit-member-accessibility': 0,
     '@typescript-eslint/no-triple-slash-reference': 0,
-    '@typescript-eslint/triple-slash-reference': ['error', { path: 'always', types: 'never', lib: 'never' }],
+    '@typescript-eslint/triple-slash-reference': [
+      'error',
+      { path: 'always', types: 'never', lib: 'never' }
+    ],
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/no-empty-interface': 0,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-this-alias': 0,
     '@typescript-eslint/no-non-null-assertion': 0,
-    'no-console': process.env.NODE_ENV === 'production' ? ['warn', { allow: ['warn', 'error'] }] : 0,
+    'no-console':
+      process.env.NODE_ENV === 'production' ? ['warn', { allow: ['warn', 'error'] }] : 0,
     eqeqeq: ['warn', 'always'],
     // React相关校验规则
     'react/jsx-indent': 0,

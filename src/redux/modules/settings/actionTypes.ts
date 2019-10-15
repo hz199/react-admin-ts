@@ -65,5 +65,34 @@ export interface SetTagsNavAction {
   readonly data: SetTagsNavOptions
 }
 
+/**
+ * 删除一个 tag
+ */
+export interface DeleteOneTagAction {
+  readonly type: typeof DELETE_ONE_TAG
+  readonly data: SetTagsNavOptions
+}
+
+/**
+ * 删除全部 除了首页的 tag
+ */
+export interface DeleteAllTagAction {
+  readonly type: typeof DELETE_ALL_TAG
+  readonly data: SetTagsNavOptions
+}
+
+/**
+ * 删除其他 除了首页和当前选中的 tag
+ */
+export interface DeleteOtherTagAction {
+  readonly type: typeof DELETE_OTHER_TAG
+  readonly data: SetTagsNavOptions
+}
+
 // 所有 action 类型
-export type SettingsAction = SetScreenWidthAction | SetTagsNavAction
+export type SettingsAction =
+  | SetScreenWidthAction
+  | SetTagsNavAction
+  | DeleteOneTagAction
+  | DeleteAllTagAction
+  | DeleteOtherTagAction

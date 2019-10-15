@@ -14,6 +14,10 @@ interface IState {
 
 interface IProps {
   tagsNavList: Array<actionTypes.TagNavConfig>
+
+  deleteOneTag: (P: actionTypes.SetTagsNavOptions) => void
+  deleteAllTag: (P: actionTypes.SetTagsNavOptions) => void
+  deleteOtherTag: (P: actionTypes.SetTagsNavOptions) => void
 }
 
 class TagPageOpen extends React.PureComponent<IProps, IState> {
@@ -52,21 +56,42 @@ class TagPageOpen extends React.PureComponent<IProps, IState> {
     ) {
       // 标签在可视区域
       this.setState({
-        scrollBodyLeft: Math.min(0, scrollView.offsetWidth - 100 - currentTag.offsetWidth - currentTag.offsetLeft - 20)
+        scrollBodyLeft: Math.min(
+          0,
+          scrollView.offsetWidth - 100 - currentTag.offsetWidth - currentTag.offsetLeft - 20
+        )
       })
     } else {
       // 标签在可视区域右侧
       this.setState({
-        scrollBodyLeft: -(currentTag.offsetLeft - (scrollView.offsetWidth - 50 - currentTag.offsetWidth) + 20)
+        scrollBodyLeft: -(
+          currentTag.offsetLeft -
+          (scrollView.offsetWidth - 50 - currentTag.offsetWidth) +
+          20
+        )
       })
     }
+  }
+
+  deleteMenu = ({ key }: any) => {
+    // const { deleteAllTag, deleteOtherTag } = this.props
+    // switch (key) {
+    //   case 'all':
+    //     deleteAllTag()
+    //     break
+    //   case 'other':
+    //     deleteOtherTag()
+    //     break
+    //   default:
+    //     break
+    // }
   }
 
   render() {
     const { tagsNavList } = this.props
     const { scrollBodyLeft } = this.state
     const menus = (
-      <Menu>
+      <Menu onClick={this.deleteMenu}>
         <Menu.Item key="all">关闭所有</Menu.Item>
         <Menu.Item key="other">关闭其他</Menu.Item>
       </Menu>
@@ -93,7 +118,10 @@ class TagPageOpen extends React.PureComponent<IProps, IState> {
         <Row>
           <Col lg={22} xs={18} className="TagPageOpen__col-22">
             <div className="tag-button"></div>
-            <div className="TagPageOpen__scroll-view" ref={(view) => (this._scrollViewWrapper = view)}>
+            <div
+              className="TagPageOpen__scroll-view"
+              ref={(view) => (this._scrollViewWrapper = view)}
+            >
               <div
                 className="TagPageOpen__scroll-body"
                 style={{ left: `${scrollBodyLeft}px` }}

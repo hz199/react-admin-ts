@@ -50,7 +50,12 @@ const RouterApp = (props: IRouteProps) => {
   return (
     <Switch>
       {routeConfig.map((item: RouteConfig) => (
-        <Route key={item.path} path={item.path} exact render={() => Protected(item.component, item)(props)}></Route>
+        <Route
+          key={item.path}
+          path={item.path}
+          exact
+          render={() => Protected(item.component, item)(props)}
+        ></Route>
       ))}
       <Route render={() => <Redirect to="/404" />} />
     </Switch>
