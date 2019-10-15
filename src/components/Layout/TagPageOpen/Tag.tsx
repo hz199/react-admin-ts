@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 interface IProps {
   closable?: boolean
   color?: string
+  Index?: string
   onCurrentRef?: (tag: HTMLDivElement | null) => void
   onClose?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onPress?: () => void
@@ -16,6 +17,7 @@ const Tag: React.FunctionComponent<IProps> = (props) => {
   return (
     <div
       className="zh-tag"
+      data-index={props.Index}
       ref={(tag) => {
         if (props.color === 'primary' && !!tag && props.onCurrentRef) {
           props.onCurrentRef(tag)
@@ -40,6 +42,7 @@ const Tag: React.FunctionComponent<IProps> = (props) => {
 
 Tag.propTypes = {
   closable: PropTypes.bool,
+  Index: PropTypes.string,
   color: PropTypes.oneOf(['default', 'primary']),
   onCurrentRef: PropTypes.func,
   onClose: PropTypes.func,

@@ -5,7 +5,8 @@ const chalk = require('chalk')
 const Webpack = require('webpack')
 const webpackConfig = require('../webpack.config.js')
 
-const spinner = ora('正在构建生产环境代码...').start()
+console.log()
+const spinner = ora(chalk.cyan('building code for production...')).start()
 rm(path.join(__dirname, '../dist'), err => {
   if (err) throw err
   Webpack(webpackConfig, (err, stats) => {
