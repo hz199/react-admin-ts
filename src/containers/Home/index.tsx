@@ -8,7 +8,7 @@ import * as homeServices from '../../services/home'
 import NumberCard from './NumberCard'
 import LineBarChart from '../../components/Echarts/LineBarChart'
 import Pie from '../../components/Echarts/Pie'
-
+import withBreadcrumb from '@/hoc/withBreadcrumb'
 import './index.less'
 
 interface HomeProps {
@@ -100,4 +100,4 @@ const HomePage = (props: HomeProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomePage)
+)(withBreadcrumb([])(HomePage))

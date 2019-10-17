@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Button } from 'antd'
 import LoadingBar from '@/components/LoadingBar'
+import withBreadcrumb from '@/hoc/withBreadcrumb'
 
 const LoadingBarPage = () => {
   const handleClickStart = () => {
@@ -24,4 +25,8 @@ const LoadingBarPage = () => {
   )
 }
 
-export default LoadingBarPage
+export default withBreadcrumb([
+  {
+    title: 'LoadingBar'
+  }
+])(LoadingBarPage)
