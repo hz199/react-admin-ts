@@ -10,7 +10,10 @@ import {
   DeleteOneTagAction,
   DeleteAllTagAction,
   DeleteOtherTagAction,
-  DeleteOneTagData
+  DeleteOneTagData,
+  BreadcrumbData,
+  UpdateBreadcrumbAction,
+  UPDATE_BREADCRUMB
 } from './actionTypes'
 
 import * as H from 'history'
@@ -56,5 +59,14 @@ export const deleteAllTag = (data: H.History): DeleteAllTagAction => ({
  */
 export const deleteOtherTag = (data: H.History): DeleteOtherTagAction => ({
   type: DELETE_OTHER_TAG,
+  data
+})
+
+/**
+ * 删除其他 除了首页和当前选中的 tag
+ * @param [BreadcrumbData] data
+ */
+export const updateBreadcrumbData = (data: Array<BreadcrumbData>): UpdateBreadcrumbAction => ({
+  type: UPDATE_BREADCRUMB,
   data
 })

@@ -31,6 +31,7 @@ interface IState {
 
 interface IProps extends RouteComponentProps {
   screenOffsetWidth: number
+  breadcrumbList: actionTypes.BreadcrumbData[]
   tagsNavData: Array<actionTypes.TagNavConfig>
   setScreenWidth: (P: number) => void
   deleteOneTag: (P: actionTypes.DeleteOneTagData) => void
@@ -85,7 +86,13 @@ class App extends React.PureComponent<IProps, IState> {
 
   render() {
     const { placement, drawerVisible, collapsed } = this.state
-    const { screenOffsetWidth, tagsNavData, history, ...otherDeleteTagProps } = this.props
+    const {
+      screenOffsetWidth,
+      tagsNavData,
+      history,
+      breadcrumbList,
+      ...otherDeleteTagProps
+    } = this.props
 
     const Sider = (
       <Layout.Sider collapsed={collapsed}>
@@ -116,6 +123,8 @@ class App extends React.PureComponent<IProps, IState> {
             onMenuClick={() => {
               this.handleMenuClick()
             }}
+            appHistory={history}
+            breadcrumbList={breadcrumbList}
             currentMenuStatus={
               screenOffsetWidth < ScreenStatus ? this.state.drawerVisible : this.state.collapsed
             }
@@ -149,7 +158,8 @@ class App extends React.PureComponent<IProps, IState> {
 const mapStateToProps = (state: RootState) => {
   return {
     screenOffsetWidth: state.settings.ScreenWidth,
-    tagsNavData: state.settings.tagNav
+    tagsNavData: state.settings.tagNav,
+    breadcrumbList: state.settings.breadcrumbList
   }
 }
 

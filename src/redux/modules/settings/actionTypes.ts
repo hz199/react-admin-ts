@@ -22,6 +22,11 @@ export const DELETE_OTHER_TAG = 'settings/DELETE_OTHER_TAG'
  */
 export const DELETE_ONE_TAG = 'settings/DELETE_ONE_TAG'
 
+/**
+ * 修改面包屑数据
+ */
+export const UPDATE_BREADCRUMB = 'settings/UPDATE_BREADCRUMB'
+
 export interface TagNavConfig {
   path: string
   title: string
@@ -42,6 +47,10 @@ export interface SettingState {
    *  tagNav 路由path组合
    */
   tagNavRouter: Array<string>
+  /**
+   * 面包屑数据
+   */
+  breadcrumbList: Array<BreadcrumbData>
 }
 
 /**
@@ -62,6 +71,12 @@ export interface SetTagsNavOptions {
 export interface DeleteOneTagData {
   path: string
   history: H.History
+}
+
+// 面包屑数据
+export interface BreadcrumbData {
+  title: string
+  url?: string
 }
 
 /**
@@ -96,6 +111,14 @@ export interface DeleteOtherTagAction {
   readonly data: H.History
 }
 
+/**
+ * 修改面包屑的数据 action
+ */
+export interface UpdateBreadcrumbAction {
+  readonly type: typeof UPDATE_BREADCRUMB
+  readonly data: Array<BreadcrumbData>
+}
+
 // 所有 action 类型
 export type SettingsAction =
   | SetScreenWidthAction
@@ -103,3 +126,4 @@ export type SettingsAction =
   | DeleteOneTagAction
   | DeleteAllTagAction
   | DeleteOtherTagAction
+  | UpdateBreadcrumbAction

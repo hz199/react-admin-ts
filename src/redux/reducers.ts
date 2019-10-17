@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { RootReducer } from './Types'
+import { RootReducer } from './Types.d'
 
 import { homeReducer } from './modules/home'
 import { settingReducer } from './modules/settings'

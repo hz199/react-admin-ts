@@ -12,7 +12,8 @@ const tagNavConfig: actionTypes.TagNavConfig = {
 const defaultStore: actionTypes.SettingState = {
   ScreenWidth: 0,
   tagNav: [tagNavConfig],
-  tagNavRouter: ['/app']
+  tagNavRouter: ['/app'],
+  breadcrumbList: []
 }
 
 const localStorageKey = 'ZH_TAG_KEY'
@@ -57,6 +58,11 @@ const setTagsNav = (state: actionTypes.SettingState, data: actionTypes.SetTagsNa
   return Object.assign({}, state, { tagNav: initTagsNav, tagNavRouter: initTagPath })
 }
 
+/**
+ * 删除所有 tagsNav
+ * @param state
+ * @param data
+ */
 const deleteAllTag = (state: actionTypes.SettingState, data: H.History) => {
   setTimeout(() => {
     data && data.push('/app')
@@ -125,6 +131,8 @@ const settingReducer = (state = defaultStore, action: actionTypes.SettingsAction
       return deleteOtherTag(state)
     case actionTypes.DELETE_ONE_TAG:
       return deleteOneTag(state, action.data)
+    case actionTypes.UPDATE_BREADCRUMB:
+      return { ...state, breadcrumbList: action.data }
     default:
       return state
   }
