@@ -4,7 +4,7 @@ module.exports = {
       '@babel/preset-env',
       {
         targets: 'last 2 versions',
-        useBuiltIns: 'usage',
+        useBuiltIns: 'usage', // 这个属性决定是否引入 polyfill 默认为 false  usage 为按需引入
         corejs: 3 // core-js 解决浏览器兼容
       }
     ],

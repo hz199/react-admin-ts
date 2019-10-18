@@ -132,7 +132,7 @@ const settingReducer = (state = defaultStore, action: actionTypes.SettingsAction
     case actionTypes.DELETE_ONE_TAG:
       return deleteOneTag(state, action.data)
     case actionTypes.UPDATE_BREADCRUMB:
-      return { ...state, breadcrumbList: action.data }
+      return Object.assign({}, state, { breadcrumbList: action.data })
     default:
       return state
   }
