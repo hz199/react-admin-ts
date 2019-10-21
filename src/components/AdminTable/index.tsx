@@ -6,6 +6,9 @@ import exportExcel from '@/utils/exportExcel'
 interface GlobalTableProp<T> {
   columns: ColumnProps<T>[]
   dataSource: T[]
+  /**
+   * 是否需要导出Excel
+   */
   isExport?: boolean
 }
 
