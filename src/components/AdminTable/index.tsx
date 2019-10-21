@@ -6,13 +6,14 @@ import exportExcel from '@/utils/exportExcel'
 interface GlobalTableProp<T> {
   columns: ColumnProps<T>[]
   dataSource: T[]
+  isExport?: boolean
 }
 
 /**
  * 表格拦截
  */
 const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
-  const { dataSource, columns } = props
+  const { dataSource, columns, isExport } = props
 
   const handleExport = () => {
     const newColumnsMap: any = {}
@@ -45,11 +46,13 @@ const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
 
   return (
     <React.Fragment>
-      <div style={{ margin: '10px 0' }} className="clearfix">
-        <Button className="pull-right" type="primary" onClick={handleExport}>
-          导出当前页
-        </Button>
-      </div>
+      {isExport ? (
+        <div style={{ margin: '10px 0' }} className="clearfix">
+          <Button className="pull-right" type="primary" onClick={handleExport}>
+            导出当前页
+          </Button>
+        </div>
+      ) : null}
       <Table bordered columns={columns} dataSource={setDataSourceKey(dataSource)} />
     </React.Fragment>
   )

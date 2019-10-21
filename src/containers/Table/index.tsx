@@ -65,7 +65,7 @@ class TablePage extends React.PureComponent<ITableProps> {
   render() {
     return (
       <div>
-        <AdminTable<TestTableMap> columns={TableColumns} dataSource={TableData} />
+        <AdminTable<TestTableMap> isExport columns={TableColumns} dataSource={TableData} />
       </div>
     )
   }
