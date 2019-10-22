@@ -47,16 +47,23 @@ const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
     })
   }
 
+  const newDataSource = setDataSourceKey(dataSource)
+
   return (
     <React.Fragment>
       {isExport ? (
         <div style={{ margin: '10px 0' }} className="clearfix">
-          <Button className="pull-right" type="primary" onClick={handleExport}>
+          <Button
+            className="pull-right"
+            type="primary"
+            onClick={handleExport}
+            disabled={newDataSource.length === 0}
+          >
             导出当前页
           </Button>
         </div>
       ) : null}
-      <Table bordered columns={columns} dataSource={setDataSourceKey(dataSource)} />
+      <Table bordered columns={columns} dataSource={newDataSource} />
     </React.Fragment>
   )
 }

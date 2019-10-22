@@ -18,7 +18,12 @@ const menus: Array<MenusConfig> = [
       {
         icon: 'table',
         path: '/app/tables/table1',
-        title: '基础表格'
+        title: '导出Excel'
+      },
+      {
+        icon: 'table',
+        path: '/app/tables/importTable',
+        title: '导入Excel'
       }
     ]
   },

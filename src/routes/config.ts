@@ -27,7 +27,16 @@ const routes: RouteConfig[] = [
     path: '/app/tables/table1',
     component: lazy(() => import('../containers/Table')),
     meta: {
-      title: '表格',
+      title: '导出Excel',
+      rules: ['loginRequired']
+    }
+  },
+  {
+    name: 'ImportTable',
+    path: '/app/tables/importTable',
+    component: lazy(() => import('../containers/Table/ImportTablePage')),
+    meta: {
+      title: '导入Excel',
       rules: ['loginRequired']
     }
   },

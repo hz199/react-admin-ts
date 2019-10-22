@@ -1,19 +1,18 @@
 import * as React from 'react'
+import ImportExcel from '@/components/ImportExcel'
 import withBreadcrumb from '@/hoc/withBreadcrumb'
 import { Divider } from 'antd'
 import AdminTable from '@/components/AdminTable'
 import { ColumnProps } from 'antd/es/table'
 
-interface ITableProps {}
-
-interface TestTableMap {
-  key?: any
+interface ImportExcelOptions {
   name: string
-  age: number
+  age: string
   address: string
+  key?: any
 }
 
-const TableColumns: ColumnProps<TestTableMap>[] = [
+const TableColumns: ColumnProps<ImportExcelOptions>[] = [
   {
     title: '姓名',
     dataIndex: 'name',
@@ -43,36 +42,24 @@ const TableColumns: ColumnProps<TestTableMap>[] = [
   }
 ]
 
-const TableData: TestTableMap[] = [
-  {
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park'
-  },
-  {
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park'
-  },
-  {
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park'
-  }
-]
+const ImportTable: React.FunctionComponent = () => {
+  const [TableData, setTableData] = React.useState<ImportExcelOptions[]>([])
 
-class TablePage extends React.PureComponent<ITableProps> {
-  render() {
-    return (
-      <div>
-        <AdminTable<TestTableMap> isExport columns={TableColumns} dataSource={TableData} />
-      </div>
-    )
+  const handleCallback = (data: ImportExcelOptions[]) => {
+    setTableData(data)
   }
+
+  return (
+    <div>
+      <ImportExcel<ImportExcelOptions> onCallback={handleCallback} />
+
+      <AdminTable<ImportExcelOptions> isExport columns={TableColumns} dataSource={TableData} />
+    </div>
+  )
 }
 
 export default withBreadcrumb([
   {
-    title: '导出Excel表格'
+    title: '导入Excel表格'
   }
-])(TablePage)
+])(ImportTable)

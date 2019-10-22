@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { Icon } from 'antd'
-import PropTypes from 'prop-types'
 
 interface IProps {
   closable?: boolean
-  color?: string
+  color?: 'default' | 'primary'
   routerPath?: string
   onCurrentRef?: (tag: HTMLDivElement | null) => void
   onClose?: (path: string) => void
@@ -40,15 +39,6 @@ const Tag: React.FunctionComponent<IProps> = (props) => {
       ) : null}
     </div>
   )
-}
-
-Tag.propTypes = {
-  closable: PropTypes.bool,
-  routerPath: PropTypes.string,
-  color: PropTypes.oneOf(['default', 'primary']),
-  onCurrentRef: PropTypes.func,
-  onClose: PropTypes.func,
-  onPress: PropTypes.func
 }
 
 export default Tag
