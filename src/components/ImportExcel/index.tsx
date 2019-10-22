@@ -9,21 +9,24 @@ interface IProps<T> {
 
 const ImportTable = <T extends {}>(props: IProps<T>) => {
   const { onCallback } = props
+  const [isLoading, updateLoading] = React.useState<boolean>(false)
 
   const inputRef = React.useRef<HTMLInputElement>(null)
   return (
     <React.Fragment>
-      <Button type="primary" icon="cloud-upload">
+      <Button loading={isLoading} type="primary" icon="cloud-upload">
         选择excel
         <input
           accept=".xlsx"
           className="import-excel-input"
           ref={inputRef}
           type="file"
-          onChange={async () => {
-            const excel = await ImportExcel<T>(inputRef.current!)
-
-            onCallback(excel)
+          onChange={() => {
+            updateLoading(true)
+            ImportExcel<T>(inputRef.current!).then((res) => {
+              onCallback(res)
+              updateLoading(false)
+            })
           }}
         ></input>
       </Button>
