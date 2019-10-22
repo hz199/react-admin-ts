@@ -15,18 +15,18 @@ interface TestTableMap {
 
 const TableColumns: ColumnProps<TestTableMap>[] = [
   {
-    title: '姓名',
+    title: 'name',
     dataIndex: 'name',
     key: 'name',
     render: (text) => <a>{text}</a>
   },
   {
-    title: '年龄',
+    title: 'age',
     dataIndex: 'age',
     key: 'age'
   },
   {
-    title: '地址',
+    title: 'address',
     dataIndex: 'address',
     key: 'address'
   },

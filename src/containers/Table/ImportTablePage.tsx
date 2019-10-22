@@ -53,7 +53,7 @@ const ImportTable: React.FunctionComponent = () => {
     <div>
       <ImportExcel<ImportExcelOptions> onCallback={handleCallback} />
 
-      <AdminTable<ImportExcelOptions> isExport columns={TableColumns} dataSource={TableData} />
+      <AdminTable<ImportExcelOptions> columns={TableColumns} dataSource={TableData} />
     </div>
   )
 }

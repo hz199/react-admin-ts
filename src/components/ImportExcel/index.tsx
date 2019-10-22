@@ -14,7 +14,7 @@ const ImportTable = <T extends {}>(props: IProps<T>) => {
   const inputRef = React.useRef<HTMLInputElement>(null)
   return (
     <React.Fragment>
-      <Button loading={isLoading} type="primary" icon="cloud-upload">
+      <Button loading={isLoading} type="primary" icon="cloud-upload" style={{ margin: '10px 0' }}>
         选择excel
         <input
           accept=".xlsx"
