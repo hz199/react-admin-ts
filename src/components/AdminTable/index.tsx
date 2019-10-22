@@ -17,8 +17,11 @@ interface GlobalTableProp<T> {
  */
 const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
   const { dataSource, columns, isExport } = props
+  const [isLoading, updateLoading] = React.useState<boolean>(false)
 
   const handleExport = () => {
+    // 点击下载时 loading 状态
+    updateLoading(true)
     const newColumnsMap: any = {}
     let newHeaderKey: Array<string> = []
 
@@ -32,7 +35,9 @@ const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
 
     newHeaderKey = Object.keys(newColumnsMap)
     // 导出数据调用
-    exportExcel<T>({ dataSource, columnsMap: newColumnsMap, header: newHeaderKey })
+    exportExcel<T>({ dataSource, columnsMap: newColumnsMap, header: newHeaderKey }).then(() => {
+      updateLoading(false)
+    })
   }
 
   /**
@@ -56,6 +61,7 @@ const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
           <Button
             className="pull-right"
             type="primary"
+            loading={isLoading}
             onClick={handleExport}
             disabled={newDataSource.length === 0}
           >
