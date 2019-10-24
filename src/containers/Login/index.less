@@ -1,16 +1,90 @@
 .login {
   width: 100vw;
   height: 100vh;
-  &__iframe {
-    width: 100%;
-    height: 99.5%;
-    border-width: 0px;
-    margin: 0;
-    padding: 0;
-  }
-  .canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
+  background-image: linear-gradient(160deg, #3498db, #f3b52f);
+
+  .login-form {
+    width: 340px;
+    background: #f1f1f1;
+    height: 580px;
+    padding: 80px 40px;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -60%);
+
+    background:hsla(0,0%,100%,.25) border-box;
+    overflow:hidden;
+    border-radius:.3em;
+    box-shadow:0 0 0 1px hsla(0,0%,100%,.3) inset,0 .5em 1em rgba(0,0,0,0.6);
+    text-shadow:0 1px 1px hsla(0,0%,100%,.3);
+
+    h1 {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .form-item {
+      border-bottom: 2px solid #f1f1f1;
+      position: relative;
+      margin: 30px 0;
+      input {
+        font-size: 15px;
+        color: #333333;
+        border: none;
+        width: 100%;
+        height: 40px;
+        outline: none;
+        background: none;
+        padding: 0 5px;
+      }
+
+      span::before {
+        content: attr(data-placeholder);
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        color: #f1f1f1;
+        transform: translateY(-50%);
+        z-index: -1;
+        transition: all 0.3s;
+      }
+      span::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0%;
+        height: 2px;
+        background: linear-gradient(120deg, #3498db, #f3b52f);
+        transition: all 0.3s;
+      }
+
+      .focus + span::before {
+        top: -5px;
+      }
+      .focus + span::after {
+        width: 100%;
+      }
+    }
+
+    .form-item1 > button {
+      display: block;
+      width: 100%;
+      height: 50px;
+      border: none;
+      border-radius: 5px;
+      background-size: 200%;
+      cursor: pointer;
+      color: #f1f1f1;
+      font-size: 20px;
+      outline: none;
+      // box-shadow: 0px 0px 1px 1px #adadad;
+      background-image: linear-gradient(120deg, #8e44ad, #3498db, #3498db);
+      transition: all 0.3s;
+    }
+    .form-item1 > button:hover {
+      background-position: right;
+    }
   }
 }
