@@ -1,24 +1,33 @@
-import React from 'react'
+import * as React from 'react'
 import ReactDom from 'react-dom'
-import PropTypes from 'prop-types'
 
-class Draggable extends React.Component {
-  static currentDargDom = null
-  static triggerDom = null
+export interface DraggableProps {
 
-  constructor() {
-    super()
-    this.state = {
-      pageX: 0,
-      pageY: 0,
-      transformX: 0,
-      transformY: 0,
-      canMove: false,
-      style: {
-        transform: 'translate(0px, 0px)',
-        cursor: 'move',
-        transition: 'none'
-      }
+}
+
+interface IState {
+  pageX: number
+  pageY: number
+  transformX: number
+  transformY: number
+  canMove: boolean
+  style: React.CSSProperties
+}
+
+class Draggable extends React.Component<IState, DraggableProps> {
+  currentDargDom = null
+  triggerDom = null
+
+  state: IState = {
+    pageX: 0,
+    pageY: 0,
+    transformX: 0,
+    transformY: 0,
+    canMove: false,
+    style: {
+      transform: 'translate(0px, 0px)',
+      cursor: 'move',
+      transition: 'none'
     }
   }
 
@@ -30,7 +39,7 @@ class Draggable extends React.Component {
     dragHeight: 0
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: DraggableProps, nextState: IState) {
     return nextState !== this.state || JSON.stringify(nextProps) !== JSON.stringify(this.props)
   }
 
@@ -156,19 +165,6 @@ class Draggable extends React.Component {
       style: { style }
     })
   }
-}
-
-Draggable.defaultProps = {
-  onDragMoving: () => {},
-  onDragEnd: () => {},
-  isRange: false
-}
-
-Draggable.propTypes = {
-  trigger: PropTypes.string, // 拖拽区域 默认 document
-  onDragMoving: PropTypes.func,
-  onDragEnd: PropTypes.func,
-  isRange: PropTypes.bool // 在规定范围内不可出
 }
 
 export default Draggable
