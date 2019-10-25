@@ -6,6 +6,8 @@ import { actionTypes, actionCreators } from '../../redux/modules/home'
 import { Dispatch } from 'redux'
 import * as homeServices from '../../services/home'
 import NumberCard from './NumberCard'
+import OrderTable from './OrderTable'
+import CommentListEL from './CommentList'
 import LineBarChart from '../../components/Echarts/LineBarChart'
 import Pie from '../../components/Echarts/Pie'
 import withBreadcrumb from '@/hoc/withBreadcrumb'
@@ -51,7 +53,7 @@ const HomePage = (props: HomeProps) => {
     getHomeData()
   }, [])
 
-  const { numberCards, LineBarChartOption, pieOptions } = props.homeData
+  const { numberCards, LineBarChartOption, pieOptions, orderTable, CommentList } = props.homeData
 
   return (
     <div className="home">
@@ -82,14 +84,12 @@ const HomePage = (props: HomeProps) => {
         </Col>
         <Col lg={12} md={24}>
           <Card bordered={false}>
-            66
-            {/* <OrderTable dataSource={orderTableData}></OrderTable> */}
+            <OrderTable<actionTypes.OrderTable> dataSource={orderTable}></OrderTable>
           </Card>
         </Col>
         <Col lg={12} md={24}>
           <Card bordered={false}>
-            55
-            {/* <CommentList dataSource={commentListData}></CommentList> */}
+            <CommentListEL dataSource={CommentList}></CommentListEL>
           </Card>
         </Col>
       </Row>
