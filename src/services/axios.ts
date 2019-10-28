@@ -7,7 +7,7 @@ const apiBaseURL =
     ? '/'
     : 'https://www.fastmock.site/mock/6f76b7d369d0c948b43d58ad8a586bd0'
 
-export interface ResponseResult<T> {
+export interface ResponseResult<T = any> {
   data: T
   code: number
   message: string
