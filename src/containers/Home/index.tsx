@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch: Dispatch<actionTypes.HomeAction>): FromDis
 const HomePage = (props: HomeProps) => {
   const getHomeData = () => {
     homeServices.getHomeData().then((res) => {
-      props.setHomeData(res.data)
+      props.setHomeData(res.data.data)
     })
   }
 

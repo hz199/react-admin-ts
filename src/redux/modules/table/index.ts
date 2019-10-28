@@ -2,7 +2,10 @@ import * as actionTypes from './actionTypes'
 import * as actionCreators from './actionCreators'
 
 const defaultStore: actionTypes.ITableState = {
-  baseTableData: []
+  baseTableData: {
+    list: [],
+    totalPage: 0
+  }
 }
 
 const tableReducer = (state = defaultStore, action: actionTypes.TableActions) => {

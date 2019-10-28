@@ -12,9 +12,9 @@ module.exports = function(app) {
             timer: "@datetime('yyyy-MM-dd HH:mm:ss')",
             key: '@string(7, 10)'
           }
-        ]
+        ],
+        totalPage: 200,
       },
-      totalPage: 200,
       code: 0,
       message: 'success'
     })

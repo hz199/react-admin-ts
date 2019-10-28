@@ -13,7 +13,7 @@ interface ITableProps {
    * @param F 当前页码。 eg：{ currentPage： 1 }
    */
   getBaseTableData: (F: object) => void
-  baseTableData: actionTypes.ITableData[]
+  baseTableData: actionTypes.IBaseTableData
 }
 
 const TableColumns: ColumnProps<actionTypes.ITableData>[] = [
@@ -55,15 +55,20 @@ class TablePage extends React.PureComponent<ITableProps> {
     this.props.getBaseTableData({ currentPage: 1 })
   }
 
+  handleChangePage = (currentPage: number) => {
+    this.props.getBaseTableData({ currentPage })
+  }
+
   render() {
     const { baseTableData } = this.props
-
     return (
       <div>
         <AdminTable<actionTypes.ITableData>
           isExport
           columns={TableColumns}
-          dataSource={baseTableData}
+          dataSource={baseTableData.list}
+          totalPage={baseTableData.totalPage}
+          onPageChange={this.handleChangePage}
         />
       </div>
     )

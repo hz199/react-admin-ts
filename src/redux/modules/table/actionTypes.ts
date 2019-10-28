@@ -1,8 +1,5 @@
 import { Action } from 'redux'
 
-// import { ThunkAction } from 'redux-thunk'
-// import { Action } from 'redux';
-
 export const GET_TABLE_DATA = 'table/GET_TABLE_DATA'
 
 export interface ITableData {
@@ -13,13 +10,18 @@ export interface ITableData {
   key: string
 }
 
+export interface IBaseTableData {
+  list: ITableData[]
+  totalPage: number
+}
+
 export interface ITableState {
-  baseTableData: ITableData[]
+  baseTableData: IBaseTableData
 }
 
 export interface SetTableDataAction extends Action {
   readonly type: typeof GET_TABLE_DATA
-  readonly data: ITableData[]
+  readonly data: IBaseTableData
 }
 
 // 所有 table action 类型
