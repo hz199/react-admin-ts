@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes'
 import * as tableServices from '@/services/table'
-import { Dispatch } from 'redux'
+import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 
 export const setTableData = (data: actionTypes.ITableData[]): actionTypes.SetTableDataAction => {
   return {
@@ -9,9 +9,11 @@ export const setTableData = (data: actionTypes.ITableData[]): actionTypes.SetTab
   }
 }
 
-export const tableDataAxios = (params: object) => {
-  return (dispatch: Dispatch<actionTypes.TableActions>) => {
-    tableServices.getBaseTable(params).then((res) => {
+export const tableDataAxios = (
+  params: object
+): ThunkAction<Promise<void>, actionTypes.ITableState, void, actionTypes.TableActions> => {
+  return (dispatch: ThunkDispatch<actionTypes.ITableState, void, actionTypes.TableActions>) => {
+    return tableServices.getBaseTable(params).then((res) => {
       dispatch(setTableData(res.data.list))
     })
   }

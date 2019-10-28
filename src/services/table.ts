@@ -9,7 +9,9 @@ export interface IGetBaseTableResponse {
 }
 
 /* table1 */
-export const getBaseTable = function (payload: object): Promise<AxiosResponse<IGetBaseTableResponse>> {
+export const getBaseTable = function(
+  payload: object
+): Promise<AxiosResponse<IGetBaseTableResponse>> {
   return axios.get('/api/table1', {
     params: payload
   })

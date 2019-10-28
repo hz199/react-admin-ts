@@ -1,6 +1,6 @@
 const Mock = require('mockjs')
 
-module.exports = function (app) {
+module.exports = function(app) {
   // 首页数据
   app.get('/api/home', function(req, res) {
     const mock = Mock.mock({

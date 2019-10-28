@@ -1,3 +1,5 @@
+import { Action } from 'redux'
+
 // import { ThunkAction } from 'redux-thunk'
 // import { Action } from 'redux';
 
@@ -12,14 +14,13 @@ export interface ITableData {
 }
 
 export interface ITableState {
-  tableData: ITableData[]
+  baseTableData: ITableData[]
 }
 
-export interface SetTableDataAction {
+export interface SetTableDataAction extends Action {
   readonly type: typeof GET_TABLE_DATA
   readonly data: ITableData[]
 }
 
 // 所有 table action 类型
 export type TableActions = SetTableDataAction
-

@@ -5,40 +5,41 @@ import AdminTable from '@/components/AdminTable'
 import { ColumnProps } from 'antd/es/table'
 import { connect } from 'react-redux'
 import { actionTypes, actionCreators } from '@/redux/modules/table'
-import { Dispatch } from 'redux'
 import { RootState } from '@/redux/Types'
+import { ThunkDispatch } from 'redux-thunk'
 
-interface ITableProps {}
-
-interface TestTableMap {
-  key?: any
-  name: string
-  age: number
-  address: string
+interface ITableProps {
+  getBaseTableData: (F: object) => void
+  baseTableData: actionTypes.ITableData[]
 }
 
-const TableColumns: ColumnProps<TestTableMap>[] = [
+const TableColumns: ColumnProps<actionTypes.ITableData>[] = [
   {
-    title: 'name',
-    dataIndex: 'name',
-    key: 'name'
+    title: 'nameCN',
+    dataIndex: 'nameCN',
+    key: 'nameCN'
   },
   {
-    title: 'age',
-    dataIndex: 'age',
-    key: 'age'
+    title: 'nameEN',
+    dataIndex: 'nameEN',
+    key: 'nameEN'
   },
   {
-    title: 'address',
-    dataIndex: 'address',
-    key: 'address'
+    title: 'county',
+    dataIndex: 'county',
+    key: 'county'
+  },
+  {
+    title: 'timer',
+    dataIndex: 'timer',
+    key: 'timer'
   },
   {
     title: '操作',
     key: 'action',
     render: (text, record) => (
       <span>
-        <a>Invite {record.name}</a>
+        <a>{record.nameCN}</a>
         <Divider type="vertical" />
         <a>Delete</a>
       </span>
@@ -46,29 +47,21 @@ const TableColumns: ColumnProps<TestTableMap>[] = [
   }
 ]
 
-const TableData: TestTableMap[] = [
-  {
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park'
-  },
-  {
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park'
-  },
-  {
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park'
-  }
-]
-
 class TablePage extends React.PureComponent<ITableProps> {
+  componentDidMount() {
+    this.props.getBaseTableData({ currentPage: 1 })
+  }
+
   render() {
+    const { baseTableData } = this.props
+
     return (
       <div>
-        <AdminTable<TestTableMap> isExport columns={TableColumns} dataSource={TableData} />
+        <AdminTable<actionTypes.ITableData>
+          isExport
+          columns={TableColumns}
+          dataSource={baseTableData}
+        />
       </div>
     )
   }
@@ -76,12 +69,15 @@ class TablePage extends React.PureComponent<ITableProps> {
 
 const mapStateToProps = (state: RootState) => {
   return {
+    baseTableData: state.table.baseTableData
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<actionTypes.TableActions>) => {
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<actionTypes.ITableState, void, actionTypes.TableActions>
+) => {
   return {
-    getBaseTableData(payload = {currentPage: 1}) {
+    getBaseTableData: async (payload: object) => {
       dispatch(actionCreators.tableDataAxios(payload))
     }
   }
@@ -90,8 +86,10 @@ const mapDispatchToProps = (dispatch: Dispatch<actionTypes.TableActions>) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withBreadcrumb([
-  {
-    title: '导出Excel表格'
-  }
-])(TablePage))
+)(
+  withBreadcrumb([
+    {
+      title: '导出Excel表格'
+    }
+  ])(TablePage)
+)

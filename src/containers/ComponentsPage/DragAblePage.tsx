@@ -3,11 +3,7 @@ import * as React from 'react'
 import withBreadcrumb from '@/hoc/withBreadcrumb'
 
 const DragAblePage = () => {
-  return (
-    <div>
-      DragAblePage
-    </div>
-  )
+  return <div>DragAblePage</div>
 }
 
 export default withBreadcrumb([

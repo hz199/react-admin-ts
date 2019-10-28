@@ -1,9 +1,7 @@
 import * as React from 'react'
 import ReactDom from 'react-dom'
 
-export interface DraggableProps {
-
-}
+export interface DraggableProps {}
 
 interface IState {
   pageX: number

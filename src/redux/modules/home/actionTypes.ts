@@ -1,3 +1,5 @@
+import { Action } from 'redux'
+
 export const SET_HOME_DATA = 'home/SET_HOME_DATA'
 
 export interface NumberCards {
@@ -35,7 +37,7 @@ export interface HomeData {
   CommentList: any[]
 }
 
-export interface AddHomeDataAction {
+export interface AddHomeDataAction extends Action {
   readonly type: typeof SET_HOME_DATA
   readonly data: HomeData
 }
