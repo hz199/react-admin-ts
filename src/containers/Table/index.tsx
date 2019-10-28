@@ -9,6 +9,9 @@ import { RootState } from '@/redux/Types'
 import { ThunkDispatch } from 'redux-thunk'
 
 interface ITableProps {
+  /**
+   * @param F 当前页码。 eg：{ currentPage： 1 }
+   */
   getBaseTableData: (F: object) => void
   baseTableData: actionTypes.ITableData[]
 }

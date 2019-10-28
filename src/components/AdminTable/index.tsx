@@ -10,13 +10,21 @@ interface GlobalTableProp<T> {
    * 是否需要导出Excel
    */
   isExport?: boolean
+  /**
+   * 页码改变时回调
+   */
+  onPageChange?: (page: number, pageSize?: number | undefined) => void
+  /**
+   * 一共多少页数据
+   */
+  totalPage?: number
 }
 
 /**
  * 表格拦截
  */
 const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
-  const { dataSource, columns, isExport } = props
+  const { dataSource, columns, isExport, onPageChange, totalPage } = props
   const [isLoading, updateLoading] = React.useState<boolean>(false)
 
   const handleExport = () => {
@@ -69,7 +77,17 @@ const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
           </Button>
         </div>
       ) : null}
-      <Table bordered columns={columns} dataSource={newDataSource} />
+      <Table
+        pagination={{
+          total: totalPage || 0,
+          showQuickJumper: true,
+          onChange: onPageChange,
+          showSizeChanger: true
+        }}
+        bordered
+        columns={columns}
+        dataSource={newDataSource}
+      />
     </React.Fragment>
   )
 }

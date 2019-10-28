@@ -4,11 +4,12 @@ import { actionTypes } from '@/redux/modules/table'
 
 export interface IGetBaseTableResponse {
   list: Array<actionTypes.ITableData>
+  totalPage: number
   code: number
   message: string
 }
 
-/* table1 */
+/* baseTable */
 export const getBaseTable = function(
   payload: object
 ): Promise<AxiosResponse<IGetBaseTableResponse>> {

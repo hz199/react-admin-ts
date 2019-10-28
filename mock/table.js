@@ -14,6 +14,7 @@ module.exports = function(app) {
           }
         ]
       },
+      totalPage: 200,
       code: 0,
       message: 'success'
     })
