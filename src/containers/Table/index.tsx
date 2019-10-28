@@ -3,6 +3,10 @@ import withBreadcrumb from '@/hoc/withBreadcrumb'
 import { Divider } from 'antd'
 import AdminTable from '@/components/AdminTable'
 import { ColumnProps } from 'antd/es/table'
+import { connect } from 'react-redux'
+import { actionTypes, actionCreators } from '@/redux/modules/table'
+import { Dispatch } from 'redux'
+import { RootState } from '@/redux/Types'
 
 interface ITableProps {}
 
@@ -17,8 +21,7 @@ const TableColumns: ColumnProps<TestTableMap>[] = [
   {
     title: 'name',
     dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>
+    key: 'name'
   },
   {
     title: 'age',
@@ -71,8 +74,24 @@ class TablePage extends React.PureComponent<ITableProps> {
   }
 }
 
-export default withBreadcrumb([
+const mapStateToProps = (state: RootState) => {
+  return {
+  }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<actionTypes.TableActions>) => {
+  return {
+    getBaseTableData(payload = {currentPage: 1}) {
+      dispatch(actionCreators.tableDataAxios(payload))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withBreadcrumb([
   {
     title: '导出Excel表格'
   }
-])(TablePage)
+])(TablePage))

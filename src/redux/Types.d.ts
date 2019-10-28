@@ -1,5 +1,6 @@
 import { HomeAction, HomeState } from './modules/home/actionTypes'
 import { SettingsAction, SettingState } from './modules/settings/actionTypes'
+import { TableActions, ITableState } from './modules/table/actionTypes'
 
 // export interface IAction<T extends {}, U> {
 //   readonly type: U
@@ -11,11 +12,14 @@ import { SettingsAction, SettingState } from './modules/settings/actionTypes'
 //   (payload: T): IAction<T, U>
 // }
 
-export type RootAction = HomeAction | SettingsAction
+// 根 Action
+export type RootAction = HomeAction | SettingsAction | TableActions
 
+// 根 State
 export interface RootState {
   readonly home: HomeState
   readonly settings: SettingState
+  readonly table: ITableState
 }
 
 export type RootReducer = (state: RootState | undefined, action: RootAction) => RootState

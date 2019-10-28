@@ -56,7 +56,7 @@ class Draggable extends React.Component<IState, DraggableProps> {
   handleMousedown = (e) => {
     let transform = /\(.*\)/.exec(this.currentDargDom.style.transform)
 
-    if (transform) {
+    if (transform !== null) {
       transform = transform[0].slice(1, transform[0].length - 1)
       const splitXY = transform.split('px, ')
 
