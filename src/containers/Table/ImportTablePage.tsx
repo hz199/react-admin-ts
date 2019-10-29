@@ -6,35 +6,40 @@ import AdminTable from '@/components/AdminTable'
 import { ColumnProps } from 'antd/es/table'
 
 interface ImportExcelOptions {
-  name: string
-  age: string
-  address: string
-  key?: any
+  nameEN: string
+  nameCN: string
+  county: string
+  timer: string
+  key: string
 }
 
 const TableColumns: ColumnProps<ImportExcelOptions>[] = [
   {
-    title: '姓名',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>
+    title: 'nameCN',
+    dataIndex: 'nameCN',
+    key: 'nameCN'
   },
   {
-    title: '年龄',
-    dataIndex: 'age',
-    key: 'age'
+    title: 'nameEN',
+    dataIndex: 'nameEN',
+    key: 'nameEN'
   },
   {
-    title: '地址',
-    dataIndex: 'address',
-    key: 'address'
+    title: 'county',
+    dataIndex: 'county',
+    key: 'county'
+  },
+  {
+    title: 'timer',
+    dataIndex: 'timer',
+    key: 'timer'
   },
   {
     title: '操作',
     key: 'action',
     render: (text, record) => (
       <span>
-        <a>Invite {record.name}</a>
+        <a>{record.nameCN}</a>
         <Divider type="vertical" />
         <a>Delete</a>
       </span>

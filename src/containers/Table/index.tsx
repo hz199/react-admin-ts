@@ -65,6 +65,7 @@ class TablePage extends React.PureComponent<ITableProps> {
       <div>
         <AdminTable<actionTypes.ITableData>
           isExport
+          isShowPage
           columns={TableColumns}
           dataSource={baseTableData.list}
           totalPage={baseTableData.totalPage}

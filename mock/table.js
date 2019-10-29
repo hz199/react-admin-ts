@@ -13,7 +13,7 @@ module.exports = function(app) {
             key: '@string(7, 10)'
           }
         ],
-        totalPage: 200,
+        totalPage: 200
       },
       code: 0,
       message: 'success'

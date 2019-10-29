@@ -18,13 +18,17 @@ interface GlobalTableProp<T> {
    * 一共多少页数据
    */
   totalPage?: number
+  /**
+   * 是否显示页码
+   */
+  isShowPage?: boolean
 }
 
 /**
  * 表格拦截
  */
 const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
-  const { dataSource, columns, isExport, onPageChange, totalPage } = props
+  const { dataSource, columns, isExport, onPageChange, totalPage, isShowPage } = props
   const [isLoading, updateLoading] = React.useState<boolean>(false)
 
   const handleExport = () => {
@@ -61,7 +65,13 @@ const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
   }
 
   const newDataSource = setDataSourceKey(dataSource)
-
+  // table 页码配置
+  const PAGINATION = {
+    total: totalPage || 0,
+    showQuickJumper: true,
+    onChange: onPageChange,
+    showSizeChanger: true
+  }
   return (
     <React.Fragment>
       {isExport ? (
@@ -78,12 +88,7 @@ const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
         </div>
       ) : null}
       <Table
-        pagination={{
-          total: totalPage || 0,
-          showQuickJumper: true,
-          onChange: onPageChange,
-          showSizeChanger: true
-        }}
+        pagination={!isShowPage ? false : PAGINATION}
         bordered
         columns={columns}
         dataSource={newDataSource}
