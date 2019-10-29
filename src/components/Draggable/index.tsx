@@ -1,7 +1,22 @@
 import * as React from 'react'
 import ReactDom from 'react-dom'
 
-export interface DraggableProps {}
+export interface DraggableProps {
+  /**
+   * 拖拽组件 父级区域 class 或者 ID
+   */
+  trigger: string
+  onDragMoving?: (E: any) => void
+  onDragEnd?: (E: any) => void
+  // 是否拖拽可超出区域
+  isRange?: boolean
+  children: (
+    F: <T>(ref: T) => void,
+    {
+      style: {}
+    }
+  ) => React.ReactNode
+}
 
 interface IState {
   pageX: number
@@ -12,9 +27,9 @@ interface IState {
   style: React.CSSProperties
 }
 
-class Draggable extends React.Component<IState, DraggableProps> {
-  currentDargDom = null
-  triggerDom = null
+class Draggable extends React.Component<DraggableProps, IState> {
+  currentDargDom: HTMLElement | Element | Text | null = null
+  triggerDom: HTMLElement | Document | null = null
 
   state: IState = {
     pageX: 0,
@@ -46,17 +61,17 @@ class Draggable extends React.Component<IState, DraggableProps> {
   }
 
   componentWillUnmount() {
-    this.currentDargDom.removeEventListener('mousedown', this.handleMousedown)
-    this.triggerDom.removeEventListener('mousemove', this.handleMousemove)
-    this.triggerDom.removeEventListener('mouseup', this.handleMouseup)
+    this.currentDargDom!.removeEventListener('mousedown', this.handleMousedown)
+    this.triggerDom!.removeEventListener('mousemove', this.handleMousemove)
+    this.triggerDom!.removeEventListener('mouseup', this.handleMouseup)
   }
 
-  handleMousedown = (e) => {
-    let transform = /\(.*\)/.exec(this.currentDargDom.style.transform)
+  handleMousedown = (e: any) => {
+    const transform = /\(.*\)/.exec((this.currentDargDom! as HTMLElement).style.transform)
 
     if (transform !== null) {
-      transform = transform[0].slice(1, transform[0].length - 1)
-      const splitXY = transform.split('px, ')
+      const newTransform = transform[0].slice(1, transform[0].length - 1)
+      const splitXY = newTransform.split('px, ')
 
       this.setState({
         transformX: parseFloat(splitXY[0]),
@@ -75,13 +90,13 @@ class Draggable extends React.Component<IState, DraggableProps> {
       }
     })
 
-    this.triggerDom.addEventListener('mousemove', this.handleMousemove)
-    this.triggerDom.addEventListener('mouseup', this.handleMouseup)
+    this.triggerDom!.addEventListener('mousemove', this.handleMousemove)
+    this.triggerDom!.addEventListener('mouseup', this.handleMouseup)
 
     this.initTriggerDomRang()
   }
 
-  handleMousemove = (e) => {
+  handleMousemove = (e: any) => {
     const { pageX, transformX, pageY, transformY, canMove } = this.state
 
     let xOffset = e.pageX - pageX + transformX
@@ -111,12 +126,12 @@ class Draggable extends React.Component<IState, DraggableProps> {
       })
     }
 
-    this.props.onDragMoving(e)
+    this.props.onDragMoving && this.props.onDragMoving(e)
   }
 
-  handleMouseup = (e) => {
-    this.triggerDom.removeEventListener('mousemove', this.handleMousemove)
-    this.triggerDom.removeEventListener('mouseup', this.handleMouseup)
+  handleMouseup = (e: any) => {
+    this.triggerDom!.removeEventListener('mousemove', this.handleMousemove)
+    this.triggerDom!.removeEventListener('mouseup', this.handleMouseup)
 
     this.setState((prevState) => {
       const newStyle = JSON.parse(JSON.stringify(prevState.style))
@@ -127,7 +142,7 @@ class Draggable extends React.Component<IState, DraggableProps> {
       }
     })
 
-    this.props.onDragEnd(e)
+    this.props.onDragEnd && this.props.onDragEnd(e)
   }
 
   onDragStart = () => {
@@ -136,22 +151,28 @@ class Draggable extends React.Component<IState, DraggableProps> {
       return
     }
     // 拖拽区域dom
-    this.triggerDom = this.props.trigger ? document.querySelector(this.props.trigger) : document
+    this.triggerDom = this.props.trigger
+      ? document.querySelector<HTMLElement>(this.props.trigger)
+      : document
     // 绑定事件
     this.currentDargDom.addEventListener('mousedown', this.handleMousedown)
   }
 
   initTriggerDomRang = () => {
     this.domRangParams = {
-      triggerWidth: this.triggerDom.clientWidth || this.triggerDom.documentElement.clientWidth,
-      dragWidth: this.currentDargDom.offsetWidth,
-      triggerHeight: this.triggerDom.clientHeight || this.triggerDom.documentElement.clientHeight,
-      dragHeight: this.currentDargDom.offsetHeight
+      triggerWidth:
+        (this.triggerDom! as HTMLElement).clientWidth ||
+        (this.triggerDom! as Document).documentElement.clientWidth,
+      dragWidth: (this.currentDargDom! as HTMLElement).offsetWidth,
+      triggerHeight:
+        (this.triggerDom! as HTMLElement).clientHeight ||
+        (this.triggerDom! as Document).documentElement.clientHeight,
+      dragHeight: (this.currentDargDom! as HTMLElement).offsetHeight
     }
   }
 
   /* 获取dom */
-  getRef = (ref) => {
+  getRef = (ref: any) => {
     this.currentDargDom = ReactDom.findDOMNode(ref)
   }
 

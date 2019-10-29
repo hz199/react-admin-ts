@@ -37,7 +37,7 @@ const menus: Array<MenusConfig> = [
         title: 'LoadingBar'
       },
       {
-        icon: 'loading-3-quarters',
+        icon: 'drag',
         path: '/app/components/dragAblePage',
         title: '简易拖拽'
       }
