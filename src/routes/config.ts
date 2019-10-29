@@ -49,6 +49,15 @@ const routes: RouteConfig[] = [
       title: 'LoadingBar',
       rules: ['loginRequired']
     }
+  },
+  {
+    name: 'LoadingBar',
+    path: '/app/components/dragAblePage',
+    component: lazy(() => import('../containers/ComponentsPage/DragAblePage')),
+    meta: {
+      title: '简易拖拽',
+      rules: ['loginRequired']
+    }
   }
 ]
 

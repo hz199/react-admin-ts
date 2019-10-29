@@ -85,13 +85,16 @@ module.exports = {
           name: 'vendor',
           test: /node_modules/,
           chunks: 'initial',
-          priority: 10
+          priority: 10,
+          enforce: true
         },
         common: {
           name: 'common',
           chunks: 'initial',
           minChunks: 2,
-          minSize: 0
+          minSize: 0,
+          maxInitialRequests: 5, // 最大异步请求数， 默认1
+          enforce: true
         }
       }
     }
@@ -147,23 +150,27 @@ module.exports = {
         use: ['html-loader']
       },
       {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 2 * 1024,
-              outputPath: 'static/images'
-            }
-          }
-        ]
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'static/img/[name].[hash:7].[ext]'
+        }
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'static/media/[name].[hash:7].[ext]'
+        }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          outputPath: 'static/fonts'
+          name: 'static/fonts/[name].[hash:7].[ext]'
         }
       }
     ].filter(Boolean)
