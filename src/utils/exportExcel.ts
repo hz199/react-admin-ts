@@ -1,7 +1,7 @@
 import handleXlsx from './handleXlsx'
 import { pick, mapKeys } from 'lodash'
 
-interface IXlsxWorkOptions<T> {
+interface IXlsxWorkOptions<T extends {} = {}> {
   dataSource: T[]
   // 只是包含 key: title
   columnsMap: { [key: string]: string }
@@ -12,7 +12,7 @@ interface IXlsxWorkOptions<T> {
 /**
  * excel导出
  */
-const handleXlsxWork = async <T>({
+const handleXlsxWork = async <T extends {} = {}>({
   dataSource,
   columnsMap,
   header,
