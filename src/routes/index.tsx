@@ -12,7 +12,9 @@ interface RequiredRules {
 // 权限限制规则
 const requiredRules: RequiredRules = {
   loginRequired: () => {
-    return true
+    const userInfo = JSON.parse(window.localStorage.getItem('USER_INFO') || '{}')
+
+    return Object.keys(userInfo).length > 0
   }
 }
 

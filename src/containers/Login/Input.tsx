@@ -4,7 +4,9 @@ type InputType = 'text' | 'password'
 
 interface IProps {
   type: InputType
+  name?: string
   placeholder?: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Input = (props: IProps) => {
@@ -36,11 +38,19 @@ const Input = (props: IProps) => {
     }
   }, [])
 
-  const { type, placeholder } = props
+  const { type, placeholder, onChange, name } = props
 
   return (
     <div className="form-item">
-      <input ref={inputEL} type={type}></input>
+      <input
+        onChange={(e) => {
+          onChange && onChange(e)
+        }}
+        autoComplete="off"
+        name={name}
+        ref={inputEL}
+        type={type}
+      ></input>
       <span data-placeholder={placeholder}></span>
     </div>
   )

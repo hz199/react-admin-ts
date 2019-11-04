@@ -10,7 +10,7 @@ export const formatMoney = function formatNumber(currentNumber: number, symbol =
 /**
  * 深拷贝
  */
-export function deepCopy<T> (target: T): T {
+export function deepCopy<T>(target: T): T {
   const type = typeof target
 
   if (target === null || type === 'boolean' || type === 'number' || type === 'string') {
@@ -28,7 +28,7 @@ export function deepCopy<T> (target: T): T {
   if (typeof target === 'object') {
     const obj: any = {}
 
-    for (let key in target) {
+    for (const key in target) {
       obj[key] = deepCopy(target[key])
     }
 
