@@ -48,7 +48,9 @@ const AdminTable = <T extends { key?: any }>(props: GlobalTableProp<T>) => {
     newHeaderKey = Object.keys(newColumnsMap)
     // 导出数据调用
     exportExcel<T>({ dataSource, columnsMap: newColumnsMap, header: newHeaderKey }).then(() => {
-      updateLoading(false)
+      setTimeout(() => {
+        updateLoading(false)
+      }, 1000)
     })
   }
 

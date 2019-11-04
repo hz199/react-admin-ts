@@ -1,0 +1,59 @@
+.loading-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  ul {
+    display: flex;
+  }
+
+  li {
+    z-index: 1;
+    transition: 0.5s all ease;
+    width: 20px;
+    height: 20px;
+    list-style-type: none;
+    margin: 8px;
+    animation: loading 1s infinite;
+  }
+
+
+  li:nth-child(1) {
+    background: #efd3f6;
+    animation-delay: 100ms;
+  }
+
+  li:nth-child(2) {
+    background: #D09DC4;
+    animation-delay: 200ms;
+  }
+
+  li:nth-child(3) {
+    background: #C7B3E1;
+    animation-delay: 300ms
+  }
+
+  li:nth-child(4) {
+    background: #C6C4FE;
+    animation-delay: 400ms
+  }
+
+  li:nth-child(5) {
+    background: #99A9DC;
+    animation-delay: 500ms
+  }
+
+  @keyframes loading {
+    0% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(25px);
+    }
+
+    100% {
+      transform: translateY(0px);
+    }
+  }
+}

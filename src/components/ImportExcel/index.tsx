@@ -24,8 +24,10 @@ const ImportTable = <T extends {}>(props: IProps<T>) => {
           onChange={() => {
             updateLoading(true)
             ImportExcel<T>(inputRef.current!).then((res) => {
-              onCallback(res)
-              updateLoading(false)
+              setTimeout(() => {
+                updateLoading(false)
+                onCallback(res)
+              }, 500)
             })
           }}
         ></input>
