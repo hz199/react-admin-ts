@@ -3,7 +3,7 @@
 # 终止一个错误
 set -e
 # 构建
-yarn run build
+npm run build
 
 # 复制CNAME文件
 cp ./CNAME ./dist
