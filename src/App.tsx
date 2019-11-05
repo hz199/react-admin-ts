@@ -11,6 +11,7 @@ import AdminHeader from './components/Layout/Header'
 import Menus from './components/Layout/Menus'
 import throttle from './utils/throttle'
 import TagPageOpen from './components/Layout/TagPageOpen'
+import LoadingFull from './components/loadingFull'
 import './App.less'
 
 /**
@@ -141,7 +142,7 @@ class App extends React.PureComponent<IProps, IState> {
             style={{ margin: '8px 16px 0', display: 'flex', flexDirection: 'column' }}
           >
             <div style={{ background: '#fff', borderRadius: '2px', padding: '5px', flexGrow: 1 }}>
-              <React.Suspense fallback={<div>Loading comp...</div>}>
+              <React.Suspense fallback={<LoadingFull></LoadingFull>}>
                 <RouterApp></RouterApp>
               </React.Suspense>
             </div>
