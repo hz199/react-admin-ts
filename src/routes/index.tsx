@@ -6,15 +6,15 @@ import routeConfig, { RouteConfig } from './config'
 import { actionCreators, actionTypes } from '../redux/modules/settings'
 
 interface RequiredRules {
-  loginRequired: () => boolean
+  // 返回的是 重定向的路径 Redirect 无返回则为 ''
+  loginRequired: () => string
 }
 
 // 权限限制规则
 const requiredRules: RequiredRules = {
   loginRequired: () => {
     const userInfo = JSON.parse(window.localStorage.getItem('USER_INFO') || '{}')
-
-    return Object.keys(userInfo).length > 0
+    return Object.keys(userInfo).length > 0 ? '' : '/login'
   }
 }
 
@@ -34,8 +34,8 @@ const Protected = function Protected(Comp: React.ComponentType, item: RouteConfi
       for (let i = 0; i < middleware.length; i++) {
         const result = middleware[i](path)
 
-        if (!result) {
-          return <Redirect to="/login" />
+        if (result) {
+          return <Redirect to={result} />
         }
       }
     }

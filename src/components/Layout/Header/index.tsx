@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { Layout, Icon, Breadcrumb } from 'antd'
+import { Layout, Icon, Breadcrumb, Avatar, Dropdown, Menu } from 'antd'
 import * as H from 'history'
 import { actionTypes } from '@/redux/modules/settings'
+import { actionTypes as AuthActionType } from '@/redux/modules/auth'
 import './index.less'
 
 interface IProps {
@@ -9,6 +10,7 @@ interface IProps {
   currentMenuStatus: boolean
   breadcrumbList: actionTypes.BreadcrumbData[]
   appHistory: H.History
+  userInfo: AuthActionType.UserInfo
 }
 
 const menuIconStyle: React.CSSProperties = {
@@ -20,7 +22,7 @@ const menuIconStyle: React.CSSProperties = {
 }
 
 const AdminHeader = (props: IProps) => {
-  const { onMenuClick, currentMenuStatus, appHistory, breadcrumbList } = props
+  const { onMenuClick, currentMenuStatus, appHistory, breadcrumbList, userInfo } = props
 
   const handleClick = (url?: string) => {
     if (!url) return
@@ -46,6 +48,21 @@ const AdminHeader = (props: IProps) => {
     </Breadcrumb>
   )
 
+  const menuDropdown = (
+    <Menu>
+      <Menu.Item>
+        <Icon type="import" />
+        &nbsp;&nbsp;&nbsp;登&nbsp;&nbsp;出
+      </Menu.Item>
+      <Menu.Item>
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/hz199/react-admin-ts">
+          <Icon type="github" />
+          &nbsp;&nbsp;&nbsp; github
+        </a>
+      </Menu.Item>
+    </Menu>
+  )
+
   return (
     <Layout.Header style={{ background: '#fff', padding: 0 }} className="clearfix">
       <div className="pull-left">
@@ -58,7 +75,12 @@ const AdminHeader = (props: IProps) => {
           type={currentMenuStatus ? 'menu-unfold' : 'menu-fold'}
         />
       </div>
-      <div className="breadcrumb">{BreadcrumbElement}</div>
+      <div className="breadcrumb pull-left">{BreadcrumbElement}</div>
+      <div className="header-auth-wrapper pull-right">
+        <Dropdown overlay={menuDropdown} placement="bottomCenter">
+          <Avatar src={userInfo.avatar}>{userInfo.userName}</Avatar>
+        </Dropdown>
+      </div>
     </Layout.Header>
   )
 }

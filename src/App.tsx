@@ -7,6 +7,7 @@ import RouterApp from './routes'
 import { Dispatch } from 'redux'
 import { RootState } from './redux/Types'
 import { actionTypes, actionCreators } from './redux/modules/settings'
+import { actionTypes as AuthActionType } from './redux/modules/auth'
 import AdminHeader from './components/Layout/Header'
 import Menus from './components/Layout/Menus'
 import throttle from './utils/throttle'
@@ -34,6 +35,7 @@ interface IProps extends RouteComponentProps {
   screenOffsetWidth: number
   breadcrumbList: actionTypes.BreadcrumbData[]
   tagsNavData: Array<actionTypes.TagNavConfig>
+  userInfo: AuthActionType.UserInfo
   setScreenWidth: (P: number) => void
   deleteOneTag: (P: actionTypes.DeleteOneTagData) => void
   deleteAllTag: (P: H.History) => void
@@ -92,6 +94,7 @@ class App extends React.PureComponent<IProps, IState> {
       tagsNavData,
       history,
       breadcrumbList,
+      userInfo,
       ...otherDeleteTagProps
     } = this.props
 
@@ -124,6 +127,7 @@ class App extends React.PureComponent<IProps, IState> {
             onMenuClick={() => {
               this.handleMenuClick()
             }}
+            userInfo={userInfo}
             appHistory={history}
             breadcrumbList={breadcrumbList}
             currentMenuStatus={
@@ -160,7 +164,8 @@ const mapStateToProps = (state: RootState) => {
   return {
     screenOffsetWidth: state.settings.ScreenWidth,
     tagsNavData: state.settings.tagNav,
-    breadcrumbList: state.settings.breadcrumbList
+    breadcrumbList: state.settings.breadcrumbList,
+    userInfo: state.auth.userInfo
   }
 }
 
