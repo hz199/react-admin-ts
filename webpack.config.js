@@ -7,6 +7,7 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const compressionWebpackPlugin = require('compression-webpack-plugin')
 const HappyPack = require('happypack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const lessTheme = require('./config/lessTheme')
 
@@ -216,6 +217,13 @@ module.exports = {
         filename: 'static/css/[name].[hash:8].css',
         chunkFilename: 'static/css/[id].[hash:8].chunk.css'
       }),
+    isEnvProduction &&
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(__dirname, './src/static/favicon.ico'),
+          to: path.resolve(__dirname, './dist') 
+        }
+      ]),
     isEnvProduction &&
       new compressionWebpackPlugin({
         test: /\.(js|css)$/,
