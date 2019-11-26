@@ -48,4 +48,4 @@ const CommentList = <T extends any>(props: IProps<T>) => {
   )
 }
 
-export default CommentList
+export default React.memo(CommentList)

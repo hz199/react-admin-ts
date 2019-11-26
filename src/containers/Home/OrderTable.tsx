@@ -65,4 +65,4 @@ const OrderTable = <T extends {}>(props: IProps<T>) => {
   )
 }
 
-export default OrderTable
+export default React.memo(OrderTable)

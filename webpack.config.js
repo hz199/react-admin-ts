@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const safePostCssParser = require('postcss-safe-parser')
 const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const compressionWebpackPlugin = require('compression-webpack-plugin')
@@ -35,6 +36,7 @@ module.exports = {
     }
   },
   optimization: {
+    ...(isEnvProduction ? {runtimeChunk: 'single'} : {}),
     // 是否开启压缩
     minimize: isEnvProduction,
     // production mode 才会使用
@@ -212,6 +214,7 @@ module.exports = {
           : null
       )
     ),
+    isEnvProduction && new InlineManifestWebpackPlugin(),
     isEnvProduction &&
       new MiniCssExtractPlugin({
         filename: 'static/css/[name].[hash:8].css',
