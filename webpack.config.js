@@ -36,7 +36,7 @@ module.exports = {
     }
   },
   optimization: {
-    ...(isEnvProduction ? {runtimeChunk: 'single'} : {}),
+    ...(isEnvProduction ? { runtimeChunk: 'single' } : {}),
     // 是否开启压缩
     minimize: isEnvProduction,
     // production mode 才会使用
@@ -224,7 +224,7 @@ module.exports = {
       new CopyWebpackPlugin([
         {
           from: path.resolve(__dirname, './src/static/favicon.ico'),
-          to: path.resolve(__dirname, './dist') 
+          to: path.resolve(__dirname, './dist')
         }
       ]),
     isEnvProduction &&

@@ -26,3 +26,21 @@ export default function throttle(fn: Function, interval: number) {
     }, interval || 500)
   }
 }
+
+/**
+ * 防抖函数
+ * @param fn
+ * @param delay
+ */
+export function debounce(fn: Function, delay = 500) {
+  let timer: NodeJS.Timeout | null
+  return function(...args: any) {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+      fn(...args)
+      timer = null
+    }, delay)
+  }
+}
