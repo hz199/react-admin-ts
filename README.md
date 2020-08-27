@@ -19,3 +19,6 @@ yarn build
 ```
 yarn format
 ```
+
+### 首页
+![image]('./public/home.png')
