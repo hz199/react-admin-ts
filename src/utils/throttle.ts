@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useRef } from 'react'
+
 /**
  * 节流方法
  * @param fn 执行函数
@@ -43,4 +45,29 @@ export function debounce(fn: Function, delay = 500) {
       timer = null
     }, delay)
   }
+}
+
+/**
+ * 防抖
+ */
+export function useDebounce(fn: Function, delay = 500, dep = []) {
+  const { current } = useRef<{
+    fn: Function
+    timer: NodeJS.Timeout | null
+  }>({ fn, timer: null })
+  useEffect(
+    function() {
+      current.fn = fn
+    },
+    [fn]
+  )
+
+  return useCallback(function f(...args) {
+    if (current.timer) {
+      clearTimeout(current.timer!)
+    }
+    current.timer = setTimeout(() => {
+      current.fn.call(this, ...args)
+    }, delay)
+  }, dep)
 }
