@@ -52,7 +52,7 @@
     "mockjs": "^1.0.1-beta3",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "ora": "^3.4.0",
-    "postcss": "^7.0.18",
+    "postcss": "^8.2.10",
     "postcss-loader": "^3.0.0",
     "postcss-safe-parser": "^4.0.1",
     "prettier": "^1.18.2",
