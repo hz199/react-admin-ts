@@ -90,7 +90,7 @@
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "size-sensor": "^0.2.5",
-    "xlsx": "^0.15.1"
+    "xlsx": "^0.17.0"
   },
   "browserslist": [
     "defaults",
